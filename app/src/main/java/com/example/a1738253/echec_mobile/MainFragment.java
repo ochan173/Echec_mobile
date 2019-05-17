@@ -22,8 +22,8 @@ import android.widget.TextView;
 
 public class MainFragment extends Fragment {
     TableLayout m_boardEchichier;
-    GridLayout m_gl;
     private Button[][] m_boardXY;
+    private static int m_orientation = 1;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -38,7 +38,8 @@ public class MainFragment extends Fragment {
         m_boardEchichier = v.findViewById(R.id.echiquier);
 
         //onConfigurationChanged();
-        genererBoard(1);
+        genererBoard();
+        m_orientation *= -1;
         generrerFooter();
         return v;
     }
@@ -71,19 +72,7 @@ public class MainFragment extends Fragment {
 
 
 
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-
-
-        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            genererBoard(-1);
-        } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT){
-            genererBoard(-1);
-        }
-    }
-
-    public void genererBoard(int config) {
+    public void genererBoard() {
         //rangee.setLayoutParams();
 
         m_boardXY = new Button[8][8];
@@ -130,9 +119,9 @@ public class MainFragment extends Fragment {
 
                 //b.setLayoutParams(lp);
                 b.setText(x + "," + y);
-                if (config == -1) {
+                if (m_orientation == -1) {
                     rangee.addView(m_boardXY[x][y], width/10, height/10);
-                } else if (config == 1){
+                } else if (m_orientation == 1){
                     rangee.addView(m_boardXY[x][y], width/8, height/10);
                 }
             }
