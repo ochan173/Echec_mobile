@@ -291,6 +291,17 @@ public class Echiquier {
                 }
             }
         }
+        else {
+            int x = p_position1.getX() - p_position2.getX();
+            int y = p_position1.getY() - p_position2.getY();
+            int xAbs = Math.abs(x);
+            int yAbs = Math.abs(y);
+            if (xAbs == yAbs) {
+                for (int i = 1; i < xAbs; i++) {
+                    chemin.add(new Position(p_position1.getX() - (x/xAbs) * i, p_position1.getY() - (y/yAbs) * i));
+                }
+            }
+        }
 
         return chemin;
     }
