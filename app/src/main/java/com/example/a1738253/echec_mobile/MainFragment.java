@@ -19,6 +19,7 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import com.example.a1738253.echec_mobile.Echec.Echiquier;
 import com.example.a1738253.echec_mobile.Echec.Pieces.PieceBase;
+import com.example.a1738253.echec_mobile.Echec.Position;
 
 public class MainFragment extends Fragment {
     TableLayout m_boardEchichier;
@@ -44,12 +45,49 @@ public class MainFragment extends Fragment {
 
         Echiquier.getInstance().remplir();
 
-        for (PieceBase p : Echiquier.getInstance().getEchiquier()) {
-            m_boardXY[p.getPosition().getX()][p.getPosition().getY()].setImageDrawable(getResources().getDrawable(getRepresentation(p)));
+        afficherEchiquier();
 
-           // m_boardXY[p.getPosition().getX()][p.getPosition().getY()].
-        }
         return v;
+    }
+
+    private void afficherEchiquier() {
+        for (final PieceBase p : Echiquier.getInstance().getEchiquier()) {
+            m_boardXY[p.getPosition().getX()][p.getPosition().getY()].setImageDrawable(getResources().getDrawable(getRepresentation(p)));
+            m_boardXY[p.getPosition().getX()][p.getPosition().getY()].setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Echiquier.getInstance().set_pieceCourante(p);
+                    afficherPositionsPossible(p);
+                }
+            });
+        }
+    }
+
+    public void afficherPositionsPossible(final PieceBase p_piece) {
+       // desactiverBoutons();
+        final Position positionInitiale = new Position(p_piece.getPosition().getX(), p_piece.getPosition().getY());
+
+        for (final Position p : Echiquier.getInstance().mouvementsPiece(p_piece.getPosition())) {
+            m_boardXY[p.getX()][p.getY()].setBackgroundColor(Color.rgb(0, 255, 0));
+            m_boardXY[p.getX()][p.getY()].setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Echiquier.getInstance().deplacerPieceCourante(p);
+                   // m_boardXY[p_piece.getPosition().getX()][p_piece.getPosition().getY()].setImageDrawable(null);
+                    colorerEchiquier();
+                    afficherEchiquier();
+                    m_boardXY[positionInitiale.getX()][positionInitiale.getY()].setImageDrawable(null);
+                }
+            });
+        }
+    }
+
+    private void desactiverBoutons() {
+      for (int y = 0; y <= 8; y++) {
+          for (int x = 0; x <= 8; x++) {
+              m_boardXY[x][y].setEnabled(false);
+          }
+      }
     }
 
     public int getRepresentation(PieceBase p) {
@@ -101,28 +139,10 @@ public class MainFragment extends Fragment {
         m_boardEchichier.addView(footer);
     }
 
-
-
-    public void genererBoard() {
-        //rangee.setLayoutParams();
-
-        m_boardXY = new ImageButton[8][8];
-
-//        Display display = getActivity().getWindowManager().getDefaultDisplay();
-//        int stageWidth = display.getWidth();
-//        int stageHeight = display.getHeight();
-
-        DisplayMetrics displaymetrics = new DisplayMetrics();
-        getActivity().getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
-        int height = displaymetrics.heightPixels;
-        int width = displaymetrics.widthPixels;
-
-        TypedValue outValue = new TypedValue();
-        getContext().getTheme().resolveAttribute(R.attr.selectableItemBackground, outValue, true);
+    private void colorerEchiquier() {
         int couleur = 0;
 
-        for (int y = 7; y >= 0; y--) {
-            TableRow rangee = new TableRow(this.getContext());
+        for (int y = 0; y <= 7; y++) {
 
             if (y % 2 == 1) {
                 couleur = -1;
@@ -132,17 +152,35 @@ public class MainFragment extends Fragment {
             }
 
             for (int x = 0; x <= 7; x++) {
-                ImageButton b = new ImageButton(this.getContext());
-                b.setBackgroundResource(outValue.resourceId);
-
                 if (couleur == -1) {
-                    b.setBackgroundColor(Color.rgb(255,248,220));
+                    m_boardXY[x][y].setBackgroundColor(Color.rgb(255,248,220));
                 }
                 else {
-                    b.setBackgroundColor(Color.rgb(205,133,63));
+                    m_boardXY[x][y].setBackgroundColor(Color.rgb(205,133,63));
                 }
 
                 couleur *= -1;
+            }
+        }
+    }
+
+    public void genererBoard() {
+        m_boardXY = new ImageButton[8][8];
+
+        DisplayMetrics displaymetrics = new DisplayMetrics();
+        getActivity().getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
+        int height = displaymetrics.heightPixels;
+        int width = displaymetrics.widthPixels;
+
+        TypedValue outValue = new TypedValue();
+        getContext().getTheme().resolveAttribute(R.attr.selectableItemBackground, outValue, true);
+
+        for (int y = 7; y >= 0; y--) {
+            TableRow rangee = new TableRow(this.getContext());
+
+            for (int x = 0; x <= 7; x++) {
+                ImageButton b = new ImageButton(this.getContext());
+                b.setBackgroundResource(outValue.resourceId);
 
                 m_boardXY[x][y] = b;
 
@@ -155,6 +193,7 @@ public class MainFragment extends Fragment {
             }
             m_boardEchichier.addView(rangee);
         }
+        colorerEchiquier();
         genererFooter();
     }
 }
