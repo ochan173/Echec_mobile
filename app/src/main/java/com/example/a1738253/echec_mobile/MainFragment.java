@@ -40,12 +40,11 @@ public class MainFragment extends Fragment {
         //onConfigurationChanged();
         genererBoard();
         m_orientation *= -1;
-        generrerFooter();
         return v;
     }
 
 
-    public void generrerFooter() {
+    public void genererFooter() {
         TableRow footer = new TableRow(this.getContext());
         TextView tourJoueur = new TextView(this.getContext());
         tourJoueur.setText(R.string.tour_joueur);
@@ -127,6 +126,7 @@ public class MainFragment extends Fragment {
             }
             m_boardEchichier.addView(rangee);
         }
+        genererFooter();
     }
 }
 
