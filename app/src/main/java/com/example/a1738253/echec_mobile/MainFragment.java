@@ -1,24 +1,22 @@
 package com.example.a1738253.echec_mobile;
 
-import android.app.Activity;
-import android.content.Context;
-import android.content.res.Configuration;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.GridLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import com.example.a1738253.echec_mobile.Echec.Echiquier;
+import com.example.a1738253.echec_mobile.Echec.Pieces.PieceBase;
 
 public class MainFragment extends Fragment {
     TableLayout m_boardEchichier;
@@ -28,6 +26,7 @@ public class MainFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
     }
 
     @Nullable
@@ -40,7 +39,26 @@ public class MainFragment extends Fragment {
         //onConfigurationChanged();
         genererBoard();
         m_orientation *= -1;
+
+        Echiquier.getInstance().remplir();
+
+        for (PieceBase p : Echiquier.getInstance().getEchiquier()) {
+            m_boardXY[p.getPosition().getX()][p.getPosition().getY()].setBackgroundResource(getRepresentation(p));
+            //m_boardXY[p.getPosition().getX()][p.getPosition().getY()].setBackgroundColor(Color.rgb(205,133,63));
+        }
         return v;
+    }
+
+    public int getRepresentation(PieceBase p) {
+        switch (p.getType()) {
+            case CAVALIER: return R.drawable.cavalier_blanc;
+            case FOU: return R.drawable.cavalier_blanc;
+            case ROI: return R.drawable.cavalier_blanc;
+            case TOUR: return R.drawable.cavalier_blanc;
+            case REINE: return R.drawable.cavalier_blanc;
+            default: return R.drawable.cavalier_blanc;
+
+        }
     }
 
 
@@ -99,7 +117,6 @@ public class MainFragment extends Fragment {
                 couleur = 1;
             }
 
-            //rangee.setLayoutParams((new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.MATCH_PARENT)));
             for (int x = 0; x <= 7; x++) {
                 Button b = new Button(this.getContext());
                 b.setBackgroundResource(outValue.resourceId);
@@ -114,10 +131,8 @@ public class MainFragment extends Fragment {
                 couleur *= -1;
 
                 m_boardXY[x][y] = b;
-                // android.widget.TableLayout.LayoutParams lp = new TableLayout.LayoutParams(20,30); // 60 is height you can set it as u need
 
-                //b.setLayoutParams(lp);
-                b.setText(x + "," + y);
+              //  b.setText(x + "," + y);
                 if (m_orientation == -1) {
                     rangee.addView(m_boardXY[x][y], width/10, height/10);
                 } else if (m_orientation == 1){
