@@ -2,6 +2,7 @@ package com.example.a1738253.echec_mobile;
 
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.DrawableWrapper;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -12,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -20,7 +22,7 @@ import com.example.a1738253.echec_mobile.Echec.Pieces.PieceBase;
 
 public class MainFragment extends Fragment {
     TableLayout m_boardEchichier;
-    private Button[][] m_boardXY;
+    private ImageButton[][] m_boardXY;
     private static int m_orientation = 1;
 
     @Override
@@ -43,21 +45,33 @@ public class MainFragment extends Fragment {
         Echiquier.getInstance().remplir();
 
         for (PieceBase p : Echiquier.getInstance().getEchiquier()) {
-            m_boardXY[p.getPosition().getX()][p.getPosition().getY()].setBackgroundResource(getRepresentation(p));
-            //m_boardXY[p.getPosition().getX()][p.getPosition().getY()].setBackgroundColor(Color.rgb(205,133,63));
+            m_boardXY[p.getPosition().getX()][p.getPosition().getY()].setImageDrawable(getResources().getDrawable(getRepresentation(p)));
+
+           // m_boardXY[p.getPosition().getX()][p.getPosition().getY()].
         }
         return v;
     }
 
     public int getRepresentation(PieceBase p) {
-        switch (p.getType()) {
-            case CAVALIER: return R.drawable.cavalier_blanc;
-            case FOU: return R.drawable.cavalier_blanc;
-            case ROI: return R.drawable.cavalier_blanc;
-            case TOUR: return R.drawable.cavalier_blanc;
-            case REINE: return R.drawable.cavalier_blanc;
-            default: return R.drawable.cavalier_blanc;
-
+        if (p.getCouleur() == PieceBase.Couleur.BLANC) {
+            switch (p.getType()) {
+                case CAVALIER: return R.drawable.cavalier_blanc;
+                case FOU: return R.drawable.fou_blanc;
+                case ROI: return R.drawable.roi_blanc;
+                case TOUR: return R.drawable.tour_blanc;
+                case REINE: return R.drawable.reine_blanc;
+                default: return R.drawable.pion_blanc;
+            }
+        }
+        else {
+            switch (p.getType()) {
+                case CAVALIER: return R.drawable.cavalier_noir;
+                case FOU: return R.drawable.fou_noir;
+                case ROI: return R.drawable.roi_noir;
+                case TOUR: return R.drawable.tour_noir;
+                case REINE: return R.drawable.reine_noir;
+                default: return R.drawable.pion_noir;
+            }
         }
     }
 
@@ -92,7 +106,7 @@ public class MainFragment extends Fragment {
     public void genererBoard() {
         //rangee.setLayoutParams();
 
-        m_boardXY = new Button[8][8];
+        m_boardXY = new ImageButton[8][8];
 
 //        Display display = getActivity().getWindowManager().getDefaultDisplay();
 //        int stageWidth = display.getWidth();
@@ -118,7 +132,7 @@ public class MainFragment extends Fragment {
             }
 
             for (int x = 0; x <= 7; x++) {
-                Button b = new Button(this.getContext());
+                ImageButton b = new ImageButton(this.getContext());
                 b.setBackgroundResource(outValue.resourceId);
 
                 if (couleur == -1) {
