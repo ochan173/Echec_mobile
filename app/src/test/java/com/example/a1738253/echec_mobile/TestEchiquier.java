@@ -235,4 +235,40 @@ public class TestEchiquier extends TestCase {
         assertEquals(PieceBase.TypePiece.FOU, m_echiquier.getPiece(new Position(3, 6)).getType());
         assertEquals(31, m_echiquier.getEchiquier().size());
     }
+
+    /**
+     * Méthode pour tester l'état de l'échiquier
+     */
+    public void testEtat() {
+        Echiquier echiquier = Echiquier.getInstance();
+        echiquier.resetEchiquier();
+        echiquier.remplir();
+        echiquier.changerTour();
+
+        assertEquals(Echiquier.etatPartie.NORMAL, echiquier.getEtat());
+
+        echiquier.resetEchiquier();
+        echiquier.getEchiquier().add(Roi.obtenirPiece(PieceBase.Couleur.NOIR, new Position(0, 0)));
+        echiquier.getEchiquier().add(Roi.obtenirPiece(PieceBase.Couleur.BLANC, new Position(7, 7)));
+        assertEquals(Echiquier.etatPartie.NORMAL, echiquier.getEtat());
+
+        echiquier.getEchiquier().add(Tour.obtenirPiece(PieceBase.Couleur.BLANC, new Position(0,7)));
+        assertEquals(Echiquier.etatPartie.ECHEC, echiquier.getEtat());
+        echiquier.getEchiquier().add(Tour.obtenirPiece(PieceBase.Couleur.BLANC, new Position(1,7)));
+        assertEquals(Echiquier.etatPartie.ECHECMATE, echiquier.getEtat());
+    }
+
+    /**
+     * Méthode pour tester le changement de tour
+     */
+    public void testChangerTour() {
+        Echiquier echiquier = Echiquier.getInstance();
+        assertEquals(PieceBase.Couleur.BLANC, echiquier.getTourJoueur());
+        echiquier.changerTour();
+        assertEquals(PieceBase.Couleur.NOIR, echiquier.getTourJoueur());
+        echiquier.changerTour();
+        assertEquals(PieceBase.Couleur.BLANC, echiquier.getTourJoueur());
+        echiquier.changerTour();
+        assertEquals(PieceBase.Couleur.NOIR, echiquier.getTourJoueur());
+    }
 }

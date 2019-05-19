@@ -594,6 +594,7 @@ public class Echiquier {
      */
     public void resetEchiquier() {
         m_echiquier = new ArrayList<>();
+        tourJoueur = PieceBase.Couleur.BLANC;
     }
 
     /**
