@@ -469,7 +469,7 @@ public class Echiquier {
             if (menace.size() == 1) {
                 ArrayList<Position> cheminBloquable = cheminEntrePieces(menace.get(0).getPosition(), obtenirRoiCouleur().getPosition());
                 if(piece.getType() != PieceBase.TypePiece.ROI) {
-                    
+
                     for (int i = 0; i < mouvements.size(); i++) {
                         if (!cheminBloquable.contains(mouvements.get(i))) {
                             mouvements.remove(i);
