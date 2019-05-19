@@ -17,7 +17,7 @@ public class Echiquier {
     private static Echiquier m_instance;
     private ArrayList<PieceBase> m_echiquier;
     private PieceBase m_pieceCourante;
-    private PieceBase.Couleur tourJoueur = PieceBase.Couleur.BLANC;
+    private static PieceBase.Couleur tourJoueur = PieceBase.Couleur.BLANC;
 
     private Echiquier() {
         m_echiquier = new ArrayList<>();

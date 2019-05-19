@@ -12,6 +12,7 @@ import com.example.a1738253.echec_mobile.R;
 public class DialogNomJoueur extends Dialog {
     private EditText m_joueur1, m_joueur2;
     private Button m_confirmer;
+    public String m_nomJ1, m_nomJ2;
 
     public DialogNomJoueur(Activity p_activity) {
         super(p_activity);
@@ -35,6 +36,8 @@ public class DialogNomJoueur extends Dialog {
                     m_joueur2.setText(R.string.nom_invalide);
                 }
                 else {
+                    m_nomJ1 = m_joueur1.getText().toString();
+                    m_nomJ2 = m_joueur2.getText().toString();
                     dismiss();
                 }
             }
