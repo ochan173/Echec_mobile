@@ -12,6 +12,7 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -60,7 +61,14 @@ public class MainFragment extends Fragment {
             //TODO if pas en echec
             m_boardXY[p.getPosition().getX()][p.getPosition().getY()].setImageDrawable(getResources().getDrawable(getRepresentation(p)));
 
-            if (Echiquier.getInstance().mouvementsPiece(p.getPosition()).size() > 0) {
+            if (Echiquier.getInstance().obtenirEtat() == Echiquier.etatPartie.ECHEC && p.getType() != PieceBase.TypePiece.ROI) {
+                desactiverBoutons();
+                continue;
+            }
+
+            if (p.getType() == PieceBase.TypePiece.ROI) {
+                m_boardXY[p.getPosition().getX()][p.getPosition().getY()].setEnabled(true);
+            }
                 m_boardXY[p.getPosition().getX()][p.getPosition().getY()].setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -68,7 +76,6 @@ public class MainFragment extends Fragment {
                         afficherPositionsPossible(p);
                     }
                 });
-            }
         }
     }
 
@@ -113,6 +120,7 @@ public class MainFragment extends Fragment {
             m_boardXY[position.getX()][position.getY()].setOnClickListener(null);
         }
     }
+
 
     private void desactiverBoutons() {
       for (int y = 0; y <= 7; y++) {
