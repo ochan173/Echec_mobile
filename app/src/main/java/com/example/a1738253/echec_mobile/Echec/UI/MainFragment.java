@@ -32,7 +32,7 @@ public class MainFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         DialogNomJoueur dlg = new DialogNomJoueur(getActivity());
-        dlg.show();
+        //dlg.show();
     }
 
     @Nullable
@@ -57,22 +57,10 @@ public class MainFragment extends Fragment {
 
             //TODO if pas en echec
             m_boardXY[p.getPosition().getX()][p.getPosition().getY()].setImageDrawable(getResources().getDrawable(getRepresentation(p)));
-            jouerTour(p);
-//            if (Echiquier.getInstance().mouvementsPiece(p.getPosition()).size() == 0) {
-//                m_boardXY[p.getPosition().getX()][p.getPosition().getY()].setEnabled(false);
-//                continue;
-//            }
-//
-//            if (p.getType() == PieceBase.TypePiece.ROI) {
-//                m_boardXY[p.getPosition().getX()][p.getPosition().getY()].setEnabled(true);
-//            }
-//                m_boardXY[p.getPosition().getX()][p.getPosition().getY()].setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        Echiquier.getInstance().set_pieceCourante(p);
-//                        afficherPositionsPossible(p);
-//                    }
-//                });
+
+            if (p.getCouleur() == Echiquier.getInstance().getTourJoueur()) {
+                jouerTour(p);
+            }
         }
     }
 
@@ -182,7 +170,7 @@ public class MainFragment extends Fragment {
         TextView tourJoueur = new TextView(this.getContext());
         tourJoueur.setText(R.string.tour_joueur);
         TextView joueur = new TextView(this.getContext());
-        joueur.setText("test");
+        joueur.setText(Echiquier.getInstance().getTourJoueur().toString());
 
         TableLayout.LayoutParams tableRowParams=
                 new TableLayout.LayoutParams

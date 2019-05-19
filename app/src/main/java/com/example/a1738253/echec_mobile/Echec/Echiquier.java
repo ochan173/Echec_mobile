@@ -509,6 +509,7 @@ public class Echiquier {
             }
 
             m_pieceCourante = null;
+            changerTour();
         }
     }
 
