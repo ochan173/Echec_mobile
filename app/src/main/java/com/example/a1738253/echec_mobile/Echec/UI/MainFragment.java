@@ -25,6 +25,7 @@ import java.util.ArrayList;
 public class MainFragment extends Fragment {
     TableLayout m_boardEchichier;
     private ImageButton[][] m_boardXY;
+    private TextView m_tour;
     private static int m_orientation = 1;
 
     @Override
@@ -43,6 +44,7 @@ public class MainFragment extends Fragment {
         m_boardEchichier = v.findViewById(R.id.echiquier);
 
         genererBoard();
+        genererFooter();
         m_orientation *= -1;
 
         Echiquier.getInstance().remplir();
@@ -55,7 +57,6 @@ public class MainFragment extends Fragment {
     private void afficherEchiquier() {
         for (final PieceBase p : Echiquier.getInstance().getEchiquier()) {
 
-            //TODO if pas en echec
             m_boardXY[p.getPosition().getX()][p.getPosition().getY()].setImageDrawable(getResources().getDrawable(getRepresentation(p)));
 
             if (p.getCouleur() == Echiquier.getInstance().getTourJoueur()) {
@@ -106,6 +107,7 @@ public class MainFragment extends Fragment {
                 public void onClick(View v) {
                     if (!p.equals(p_piece.getPosition())) {
                         Echiquier.getInstance().deplacerPieceCourante(p);
+                        m_tour.setText(Echiquier.getInstance().getTourJoueur().toString());
                         m_boardXY[positionInitiale.getX()][positionInitiale.getY()].setImageDrawable(null);
                         m_boardXY[positionInitiale.getX()][positionInitiale.getY()].setOnClickListener(null);
                         desactiverOnClick(positions);
@@ -165,12 +167,12 @@ public class MainFragment extends Fragment {
     }
 
 
-    public void genererFooter() {
+    private void genererFooter() {
         TableRow footer = new TableRow(this.getContext());
         TextView tourJoueur = new TextView(this.getContext());
         tourJoueur.setText(R.string.tour_joueur);
-        TextView joueur = new TextView(this.getContext());
-        joueur.setText(Echiquier.getInstance().getTourJoueur().toString());
+        m_tour = new TextView(this.getContext());
+        m_tour.setText(Echiquier.getInstance().getTourJoueur().toString());
 
         TableLayout.LayoutParams tableRowParams=
                 new TableLayout.LayoutParams
@@ -186,7 +188,7 @@ public class MainFragment extends Fragment {
         footer.setLayoutParams(tableRowParams);
 
         footer.addView(tourJoueur);
-        footer.addView(joueur);
+        footer.addView(m_tour);
         m_boardEchichier.addView(footer);
     }
 
@@ -244,7 +246,6 @@ public class MainFragment extends Fragment {
             m_boardEchichier.addView(rangee);
         }
         colorerEchiquier();
-        genererFooter();
     }
 
 
