@@ -19,11 +19,17 @@ public class Echiquier {
     private ArrayList<PieceBase> m_echiquier;
     private PieceBase m_pieceCourante;
     private int tourJoueur = PieceBase.Couleur.BLANC.getDirection();
+    //private etatPartie etatCourant = etatPartie.NORMAL;
 
     public int getTourJoueur() {
         return tourJoueur;
     }
 
+
+
+    /**
+     * Permet de changer le tour du joueur actif
+     */
     public void changerTour() {
         tourJoueur *= -1;
     }
@@ -205,6 +211,24 @@ public class Echiquier {
     }
 
     /**
+     * Permet de savoir dans quel état la partie est
+     * @return si le roi est en échec, échec et mate ou normal
+     */
+    public etatPartie obtenirEtat() {
+        etatPartie etatCourant;
+        if (detectionEchec(obtenirRoiCouleur()).size() != 0) {
+            etatCourant = etatPartie.ECHEC;
+            if (mouvementsPiece(obtenirRoiCouleur().getPosition()).size() == 0) {
+                etatCourant = etatPartie.ECHECMATE;
+            }
+        }
+        else {
+            etatCourant = etatPartie.NORMAL;
+        }
+        return etatCourant;
+    }
+
+    /**
      * Méthode qui retourne les pièces adverses qui mettent en échec le roi
      *
      * @param p_roi Roi à analyser
@@ -227,39 +251,6 @@ public class Echiquier {
 
         return piecesDangereuses;
     }
-
-
-//    private ArrayList<Position> trajetComplet(Position p_actuelle, Position p_nouvelle) {
-//                ArrayList<Position> trajet = new ArrayList<>();
-//                int distanceX = p_nouvelle.getX() - p_actuelle.getX();
-//                int distanceY = p_nouvelle.getY() - p_actuelle.getY();
-//                int direction = -1;
-//
-//                //Ligne diagonale
-//                if (distanceY == distanceX) {
-//                    if (distanceX > 0) {
-//                        direction = 1;
-//                    }
-//                    while (!p_actuelle.equals(p_nouvelle)) {
-//                    }
-//
-//                }
-//                //Ligne verticale
-//                else if (distanceX == 0) {
-//                    if (distanceY > 0) {
-//                        direction = 1;
-//                    }
-//                }
-//                //Ligne horizontale
-//                else {
-//                    if (distanceX > 0) {
-//                        direction = 1;
-//                    }
-//        }
-//
-//
-//        return trajet;
-//    }
 
     /**
      * Permet d'obtenir toutes les positions entre 2 positions
@@ -624,7 +615,11 @@ public class Echiquier {
         return mouvements;
     }
 
-
+    /**
+     * Permet de savoir si l'échiquier a une pièce a la position donnée
+     * @param p_position position qui est vérifiée
+     * @return si la position est occupée par une pièce
+     */
     private boolean contientPosition(Position p_position) {
         for (PieceBase p : m_echiquier) {
             if (p.getPosition().equals(p_position)) {
