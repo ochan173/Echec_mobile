@@ -77,7 +77,7 @@ public abstract class PieceBase {
      * @return True si le déplacement est possible sinon False
      */
     public boolean deplacer(Position p_nouvellePosition) {
-        if(mouvementsPossible().contains(p_nouvellePosition)) {
+        if(mouvementsPossible().contains(p_nouvellePosition) || zoneAttaques().contains(p_nouvellePosition)) {
             m_position.modifierPosition(p_nouvellePosition);
             return true;
         }
