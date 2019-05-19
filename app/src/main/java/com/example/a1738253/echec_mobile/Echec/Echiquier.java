@@ -499,7 +499,7 @@ public class Echiquier {
                     mouvements.add(p);
                 }
             }
-        } else {
+        } //else {
             for (Position p : piece.mouvementsPossible()) {
                 if (contientPosition(p)) {
 
@@ -618,7 +618,7 @@ public class Echiquier {
                         }
                     }
                 }
-            }
+            //}
         }
         return mouvements;
     }
