@@ -184,7 +184,7 @@ public class Echiquier {
 
         for (PieceBase p : m_echiquier) {
             if (p.getCouleur() != p_couleur) {
-                zone.addAll(mouvementsPiece(p.getPosition()));
+                zone.addAll(mouvementsPieceEnnemi(p.getPosition()));
             }
         }
 
@@ -316,16 +316,6 @@ public class Echiquier {
     private ArrayList<Position> mouvementsPieceEnnemi(Position p_position) {
         PieceBase piece = getPiece(p_position);
         ArrayList<Position> mouvements = piece.mouvementsPossible();
-
-        if (piece.getType() == PieceBase.TypePiece.ROI){
-
-            ArrayList<Position> zoneDanger = zoneDangerRoi(piece.getCouleur());
-            for (Position p : piece.mouvementsPossible()) {
-                if (zoneDanger.contains(p)) {
-                    mouvements.remove(p);
-                }
-            }
-        }
 
             if (piece.getType() == PieceBase.TypePiece.CAVALIER) {
                 for (Position p : piece.mouvementsPossible()) {

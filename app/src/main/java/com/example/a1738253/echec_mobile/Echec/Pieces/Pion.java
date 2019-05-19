@@ -55,9 +55,19 @@ public class Pion extends PieceBase {
     @Override
     public ArrayList<Position> zoneAttaques() {
         ArrayList<Position> positionsAttaque = new ArrayList<>();
+        try {
+            positionsAttaque.add(new Position(this.getPosition().getX() - 1, this.getPosition().getY() + this.getCouleur().getDirection()));
+        }
+        catch (Exception e) {
+            // Empêche de créer une position invalide
+        }
+        try {
 
-        positionsAttaque.add(new Position(this.getPosition().getX() - 1, this.getPosition().getY() + this.getCouleur().getDirection()));
-        positionsAttaque.add(new Position(this.getPosition().getX() + 1, this.getPosition().getY() + this.getCouleur().getDirection()));
+            positionsAttaque.add(new Position(this.getPosition().getX() + 1, this.getPosition().getY() + this.getCouleur().getDirection()));
+        }
+        catch (Exception e) {
+            // Empêche de créer une position invalide
+        }
 
         return positionsAttaque;
     }
