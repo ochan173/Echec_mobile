@@ -60,23 +60,41 @@ public class MainFragment extends Fragment {
 
             //TODO if pas en echec
             m_boardXY[p.getPosition().getX()][p.getPosition().getY()].setImageDrawable(getResources().getDrawable(getRepresentation(p)));
-
-            if (Echiquier.getInstance().obtenirEtat() == Echiquier.etatPartie.ECHEC && p.getType() != PieceBase.TypePiece.ROI) {
-                desactiverBoutons();
-                continue;
-            }
-
-            if (p.getType() == PieceBase.TypePiece.ROI) {
-                m_boardXY[p.getPosition().getX()][p.getPosition().getY()].setEnabled(true);
-            }
-                m_boardXY[p.getPosition().getX()][p.getPosition().getY()].setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Echiquier.getInstance().set_pieceCourante(p);
-                        afficherPositionsPossible(p);
-                    }
-                });
+            jouerTour(p);
+//            if (Echiquier.getInstance().mouvementsPiece(p.getPosition()).size() == 0) {
+//                m_boardXY[p.getPosition().getX()][p.getPosition().getY()].setEnabled(false);
+//                continue;
+//            }
+//
+//            if (p.getType() == PieceBase.TypePiece.ROI) {
+//                m_boardXY[p.getPosition().getX()][p.getPosition().getY()].setEnabled(true);
+//            }
+//                m_boardXY[p.getPosition().getX()][p.getPosition().getY()].setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        Echiquier.getInstance().set_pieceCourante(p);
+//                        afficherPositionsPossible(p);
+//                    }
+//                });
         }
+    }
+
+    private void jouerTour(final PieceBase p_piece) {
+        if (Echiquier.getInstance().mouvementsPiece(p_piece.getPosition()).size() == 0) {
+            m_boardXY[p_piece.getPosition().getX()][p_piece.getPosition().getY()].setEnabled(false);
+            return;
+        }
+
+        if (p_piece.getType() == PieceBase.TypePiece.ROI) {
+            m_boardXY[p_piece.getPosition().getX()][p_piece.getPosition().getY()].setEnabled(true);
+        }
+        m_boardXY[p_piece.getPosition().getX()][p_piece.getPosition().getY()].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Echiquier.getInstance().set_pieceCourante(p_piece);
+                afficherPositionsPossible(p_piece);
+            }
+        });
     }
 
     public void afficherPositionsPossible(final PieceBase p_piece) {
