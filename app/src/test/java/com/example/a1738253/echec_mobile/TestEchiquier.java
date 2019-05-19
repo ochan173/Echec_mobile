@@ -250,7 +250,7 @@ public class TestEchiquier extends TestCase {
         echiquier.resetEchiquier();
         try {
             assertEquals(Echiquier.etatPartie.NORMAL, echiquier.getEtat());
-            fail("Aucun roi, ne devrait lever une exception");
+            fail("Aucun roi, devrait lever une exception");
         }catch(NullPointerException e) {
             //SUCCÈS
         }
