@@ -21,7 +21,7 @@
         android:fontFamily="sans-serif"
         android:hint="@string/nom_joueur2"/>
     <Button
-        android:id="@+id/btnOk"
+        android:id="@+id/btnConfirmer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:text="@string/debut_partie"/>
