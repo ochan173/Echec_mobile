@@ -146,6 +146,10 @@ public class Echiquier {
         m_echiquier.add(Roi.obtenirPiece(PieceBase.Couleur.NOIR, new Position(4, 7)));
     }
 
+    public void changerPion() {
+
+    }
+
     /**
      * Cette méthode vérifie si une pièce occupe la position voulue
      *
@@ -176,6 +180,18 @@ public class Echiquier {
             }
 
             m_pieceCourante.deplacer(p_position);
+
+            if (m_pieceCourante.getType() == PieceBase.TypePiece.PION) {
+                if (m_pieceCourante.getCouleur() == PieceBase.Couleur.BLANC && m_pieceCourante.getPosition().getY() == 7) {
+                    PieceBase p = m_echiquier.get(m_echiquier.indexOf(m_pieceCourante));
+                    p  = Reine.obtenirPiece(m_pieceCourante.getCouleur(), m_pieceCourante.getPosition());
+                }
+                else if (m_pieceCourante.getCouleur() == PieceBase.Couleur.NOIR && m_pieceCourante.getPosition().getY() == 0) {
+                    PieceBase p = m_echiquier.get(m_echiquier.indexOf(m_pieceCourante));
+                    p = Reine.obtenirPiece(m_pieceCourante.getCouleur(), m_pieceCourante.getPosition());
+                }
+            }
+
             m_pieceCourante = null;
         }
     }
