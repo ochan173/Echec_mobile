@@ -248,6 +248,13 @@ public class TestEchiquier extends TestCase {
         assertEquals(Echiquier.etatPartie.NORMAL, echiquier.getEtat());
 
         echiquier.resetEchiquier();
+        try {
+            assertEquals(Echiquier.etatPartie.NORMAL, echiquier.getEtat());
+            fail("Aucun roi, ne devrait lever une exception");
+        }catch(NullPointerException e) {
+            //SUCCÈS
+        }
+
         echiquier.getEchiquier().add(Roi.obtenirPiece(PieceBase.Couleur.NOIR, new Position(0, 0)));
         echiquier.getEchiquier().add(Roi.obtenirPiece(PieceBase.Couleur.BLANC, new Position(7, 7)));
         assertEquals(Echiquier.etatPartie.NORMAL, echiquier.getEtat());
