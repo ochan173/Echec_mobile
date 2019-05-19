@@ -37,28 +37,57 @@ public class Roi extends PieceBase {
     public ArrayList<Position> mouvementsPossible() {
         ArrayList<Position> mouvements = new ArrayList<>();
 
-        if (this.getPosition().getX() - 1 >= 0) {
-            mouvements.add(new Position(this.getPosition().getX() - 1, this.getPosition().getY()));
-            if (this.getPosition().getY() - 1 >= 0 ) {
-                mouvements.add(new Position(this.getPosition().getX() - 1, this.getPosition().getY() - 1));
+        if (getPosition().getX() + 1 <= 7) {
+            mouvements.add(new Position(getPosition().getX() + 1, getPosition().getY()));
+            if (getPosition().getY() + 1 <= 7) {
+                mouvements.add(new Position(getPosition().getX() + 1, getPosition().getY() + 1));
             }
-            if (this.getPosition().getY() + 1 <= 7) {
-                mouvements.add(new Position(this.getPosition().getX() - 1, this.getPosition().getY() + 1));
+            if (getPosition().getY() - 1 >= 0) {
+                mouvements.add(new Position(getPosition().getX() + 1, getPosition().getY() - 1));
             }
         }
 
-        if (this.getPosition().getX() + 1 <= 7) {
-
-            mouvements.add(new Position(this.getPosition().getX() + 1, this.getPosition().getY()));
-            if (this.getPosition().getY() - 1 >= 0 ) {
-                mouvements.add(new Position(this.getPosition().getX() + 1, this.getPosition().getY() - 1));
-                mouvements.add(new Position(this.getPosition().getX(), this.getPosition().getY() - 1));
+        if (getPosition().getX() - 1 >= 0) {
+            mouvements.add(new Position(getPosition().getX() - 1, getPosition().getY()));
+            if (getPosition().getY() + 1 <= 7) {
+                mouvements.add(new Position(getPosition().getX() - 1, getPosition().getY() + 1));
             }
-            if (this.getPosition().getY() + 1 <= 7) {
-                mouvements.add(new Position(this.getPosition().getX() + 1, this.getPosition().getY() + 1));
-                mouvements.add(new Position(this.getPosition().getX(), this.getPosition().getY() + 1));
+            if (getPosition().getY() - 1 >= 0) {
+                mouvements.add(new Position(getPosition().getX() - 1, getPosition().getY() - 1));
             }
         }
+
+        if (getPosition().getY() + 1 <= 7) {
+            mouvements.add(new Position(getPosition().getX(), getPosition().getY() + 1));
+        }
+
+        if (getPosition().getY() - 1 >= 0) {
+            mouvements.add(new Position(getPosition().getX(), getPosition().getY() - 1));
+        }
+
+//        if (this.getPosition().getX() - 1 >= 0) {
+//
+//            mouvements.add(new Position(this.getPosition().getX() - 1, this.getPosition().getY()));
+//            if (this.getPosition().getY() - 1 >= 0 ) {
+//                mouvements.add(new Position(this.getPosition().getX() - 1, this.getPosition().getY() - 1));
+//            }
+//            if (this.getPosition().getY() + 1 <= 7) {
+//                mouvements.add(new Position(this.getPosition().getX() - 1, this.getPosition().getY() + 1));
+//            }
+//        }
+//
+//        if (this.getPosition().getX() + 1 <= 7) {
+//
+//            mouvements.add(new Position(this.getPosition().getX() + 1, this.getPosition().getY()));
+//            if (this.getPosition().getY() - 1 >= 0 ) {
+//                mouvements.add(new Position(this.getPosition().getX() + 1, this.getPosition().getY() - 1));
+//                mouvements.add(new Position(this.getPosition().getX(), this.getPosition().getY() - 1));
+//            }
+//            if (this.getPosition().getY() + 1 <= 7) {
+//                mouvements.add(new Position(this.getPosition().getX() + 1, this.getPosition().getY() + 1));
+//                mouvements.add(new Position(this.getPosition().getX(), this.getPosition().getY() + 1));
+//            }
+//        }
 
         return mouvements;
     }
