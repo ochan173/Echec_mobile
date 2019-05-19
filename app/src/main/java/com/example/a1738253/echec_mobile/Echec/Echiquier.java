@@ -462,8 +462,6 @@ public class Echiquier {
         PieceBase piece = getPiece(p_position);
         ArrayList<Position> mouvements = piece.mouvementsPossible();
 
-
-
         if (piece.getType() == PieceBase.TypePiece.ROI){
 
             ArrayList<Position> zoneDanger = zoneDangerRoi(piece.getCouleur());
@@ -475,12 +473,12 @@ public class Echiquier {
         }
 
         ArrayList<PieceBase> menace = detectionEchec(obtenirRoiCouleur());
-        if (menace.size() > 0) {
-            if (menace.size() == 1) {
-
-            }
-        }
-        else {
+//       // if (menace.size() > 0) {
+//            if (menace.size() == 1) {
+//
+//            }
+//       // }
+       // else {
 
             if (piece.getType() == PieceBase.TypePiece.CAVALIER) {
                 for (Position p : piece.mouvementsPossible()) {
@@ -621,7 +619,7 @@ public class Echiquier {
                 }
             }
 
-        }
+   //     }
         return mouvements;
     }
 

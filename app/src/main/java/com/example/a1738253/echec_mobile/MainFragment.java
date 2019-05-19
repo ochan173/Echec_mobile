@@ -64,10 +64,11 @@ public class MainFragment extends Fragment {
     }
 
     public void afficherPositionsPossible(final PieceBase p_piece) {
-       // desactiverBoutons();
+        desactiverBoutons();
         final Position positionInitiale = new Position(p_piece.getPosition().getX(), p_piece.getPosition().getY());
 
         for (final Position p : Echiquier.getInstance().mouvementsPiece(p_piece.getPosition())) {
+            m_boardXY[p.getX()][p.getY()].setEnabled(true);
             m_boardXY[p.getX()][p.getY()].setBackgroundColor(Color.rgb(0, 255, 0));
             m_boardXY[p.getX()][p.getY()].setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -75,6 +76,7 @@ public class MainFragment extends Fragment {
                     Echiquier.getInstance().deplacerPieceCourante(p);
                    // m_boardXY[p_piece.getPosition().getX()][p_piece.getPosition().getY()].setImageDrawable(null);
                     colorerEchiquier();
+                    activerBoutons();
                     afficherEchiquier();
                     m_boardXY[positionInitiale.getX()][positionInitiale.getY()].setImageDrawable(null);
                 }
@@ -83,11 +85,19 @@ public class MainFragment extends Fragment {
     }
 
     private void desactiverBoutons() {
-      for (int y = 0; y <= 8; y++) {
-          for (int x = 0; x <= 8; x++) {
+      for (int y = 0; y <= 7; y++) {
+          for (int x = 0; x <= 7; x++) {
               m_boardXY[x][y].setEnabled(false);
           }
       }
+    }
+
+    private void activerBoutons() {
+        for (int y = 0; y <= 7; y++) {
+            for (int x = 0; x <= 7; x++) {
+                m_boardXY[x][y].setEnabled(true);
+            }
+        }
     }
 
     public int getRepresentation(PieceBase p) {
