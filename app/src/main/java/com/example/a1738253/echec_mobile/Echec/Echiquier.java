@@ -19,7 +19,6 @@ public class Echiquier {
     private ArrayList<PieceBase> m_echiquier;
     private PieceBase m_pieceCourante;
     private int tourJoueur = PieceBase.Couleur.BLANC.getDirection();
-    //private etatPartie etatCourant = etatPartie.NORMAL;
 
     public int getTourJoueur() {
         return tourJoueur;
@@ -146,10 +145,6 @@ public class Echiquier {
         m_echiquier.add(Roi.obtenirPiece(PieceBase.Couleur.NOIR, new Position(4, 7)));
     }
 
-    public void changerPion() {
-
-    }
-
     /**
      * Cette méthode vérifie si une pièce occupe la position voulue
      *
@@ -182,13 +177,10 @@ public class Echiquier {
             m_pieceCourante.deplacer(p_position);
 
             if (m_pieceCourante.getType() == PieceBase.TypePiece.PION) {
-                if (m_pieceCourante.getCouleur() == PieceBase.Couleur.BLANC && m_pieceCourante.getPosition().getY() == 7) {
-                    PieceBase p = m_echiquier.get(m_echiquier.indexOf(m_pieceCourante));
-                    p  = Reine.obtenirPiece(m_pieceCourante.getCouleur(), m_pieceCourante.getPosition());
-                }
-                else if (m_pieceCourante.getCouleur() == PieceBase.Couleur.NOIR && m_pieceCourante.getPosition().getY() == 0) {
-                    PieceBase p = m_echiquier.get(m_echiquier.indexOf(m_pieceCourante));
-                    p = Reine.obtenirPiece(m_pieceCourante.getCouleur(), m_pieceCourante.getPosition());
+                if (m_pieceCourante.getCouleur() == PieceBase.Couleur.BLANC && m_pieceCourante.getPosition().getY() == 7
+                        || m_pieceCourante.getCouleur() == PieceBase.Couleur.NOIR && m_pieceCourante.getPosition().getY() == 0) {
+                    m_echiquier.remove(m_pieceCourante);
+                    m_echiquier.add(Reine.obtenirPiece(m_pieceCourante.getCouleur(), m_pieceCourante.getPosition()));
                 }
             }
 
