@@ -1,5 +1,6 @@
 package com.example.a1738253.echec_mobile;
 
+import android.app.Dialog;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
@@ -21,6 +22,4 @@ public class MainActivity extends AppCompatActivity {
                     .commit();
         }
     }
-
-
 }

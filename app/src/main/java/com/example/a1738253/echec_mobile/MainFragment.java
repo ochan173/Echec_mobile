@@ -1,9 +1,9 @@
 package com.example.a1738253.echec_mobile;
 
+import android.app.Dialog;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.DrawableWrapper;
 import android.os.Bundle;
+import android.renderscript.Sampler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -12,11 +12,12 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+
+import com.example.a1738253.echec_mobile.Echec.DialogNomJoueur;
 import com.example.a1738253.echec_mobile.Echec.Echiquier;
 import com.example.a1738253.echec_mobile.Echec.Pieces.PieceBase;
 import com.example.a1738253.echec_mobile.Echec.Position;
@@ -32,6 +33,8 @@ public class MainFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        DialogNomJoueur dlg = new DialogNomJoueur(getActivity());
+        dlg.show();
     }
 
     @Nullable
@@ -53,15 +56,19 @@ public class MainFragment extends Fragment {
 
     private void afficherEchiquier() {
         for (final PieceBase p : Echiquier.getInstance().getEchiquier()) {
+
             //TODO if pas en echec
             m_boardXY[p.getPosition().getX()][p.getPosition().getY()].setImageDrawable(getResources().getDrawable(getRepresentation(p)));
-            m_boardXY[p.getPosition().getX()][p.getPosition().getY()].setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Echiquier.getInstance().set_pieceCourante(p);
-                    afficherPositionsPossible(p);
-                }
-            });
+
+            if (Echiquier.getInstance().mouvementsPiece(p.getPosition()).size() > 0) {
+                m_boardXY[p.getPosition().getX()][p.getPosition().getY()].setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Echiquier.getInstance().set_pieceCourante(p);
+                        afficherPositionsPossible(p);
+                    }
+                });
+            }
         }
     }
 
@@ -84,7 +91,6 @@ public class MainFragment extends Fragment {
                 }
             });
 
-            //TODO changer icone lorsque capture
             m_boardXY[p.getX()][p.getY()].setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -218,7 +224,6 @@ public class MainFragment extends Fragment {
 
                 m_boardXY[x][y] = b;
 
-              //  b.setText(x + "," + y);
                 if (m_orientation == -1) {
                     rangee.addView(m_boardXY[x][y], width/10, height/10);
                 } else if (m_orientation == 1){
@@ -230,5 +235,7 @@ public class MainFragment extends Fragment {
         colorerEchiquier();
         genererFooter();
     }
+
+
 }
 
