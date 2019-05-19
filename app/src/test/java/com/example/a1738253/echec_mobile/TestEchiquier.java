@@ -27,24 +27,24 @@ public class TestEchiquier extends TestCase {
 
 
         //pions blancs
-        m_echiquier.add(Pion.obtenirPiece(PieceBase.Couleur.BLANC, new Position(0,1)));
-        m_echiquier.add(Pion.obtenirPiece(PieceBase.Couleur.BLANC, new Position(1,1)));
-        m_echiquier.add(Pion.obtenirPiece(PieceBase.Couleur.BLANC, new Position(2,1)));
-        m_echiquier.add(Pion.obtenirPiece(PieceBase.Couleur.BLANC, new Position(3,1)));
-        m_echiquier.add(Pion.obtenirPiece(PieceBase.Couleur.BLANC, new Position(4,1)));
-        m_echiquier.add(Pion.obtenirPiece(PieceBase.Couleur.BLANC, new Position(5,1)));
-        m_echiquier.add(Pion.obtenirPiece(PieceBase.Couleur.BLANC, new Position(6,1)));
-        m_echiquier.add(Pion.obtenirPiece(PieceBase.Couleur.BLANC, new Position(7,1)));
+        m_echiquier.add(Pion.obtenirPiece(PieceBase.Couleur.BLANC, new Position(0, 1)));
+        m_echiquier.add(Pion.obtenirPiece(PieceBase.Couleur.BLANC, new Position(1, 1)));
+        m_echiquier.add(Pion.obtenirPiece(PieceBase.Couleur.BLANC, new Position(2, 1)));
+        m_echiquier.add(Pion.obtenirPiece(PieceBase.Couleur.BLANC, new Position(3, 1)));
+        m_echiquier.add(Pion.obtenirPiece(PieceBase.Couleur.BLANC, new Position(4, 1)));
+        m_echiquier.add(Pion.obtenirPiece(PieceBase.Couleur.BLANC, new Position(5, 1)));
+        m_echiquier.add(Pion.obtenirPiece(PieceBase.Couleur.BLANC, new Position(6, 1)));
+        m_echiquier.add(Pion.obtenirPiece(PieceBase.Couleur.BLANC, new Position(7, 1)));
 
         //Pions noirs
-        m_echiquier.add(Pion.obtenirPiece(PieceBase.Couleur.NOIR, new Position(0,6)));
-        m_echiquier.add(Pion.obtenirPiece(PieceBase.Couleur.NOIR, new Position(1,6)));
-        m_echiquier.add(Pion.obtenirPiece(PieceBase.Couleur.NOIR, new Position(2,6)));
-        m_echiquier.add(Pion.obtenirPiece(PieceBase.Couleur.NOIR, new Position(3,6)));
-        m_echiquier.add(Pion.obtenirPiece(PieceBase.Couleur.NOIR, new Position(4,6)));
-        m_echiquier.add(Pion.obtenirPiece(PieceBase.Couleur.NOIR, new Position(5,6)));
-        m_echiquier.add(Pion.obtenirPiece(PieceBase.Couleur.NOIR, new Position(6,6)));
-        m_echiquier.add(Pion.obtenirPiece(PieceBase.Couleur.NOIR, new Position(7,6)));
+        m_echiquier.add(Pion.obtenirPiece(PieceBase.Couleur.NOIR, new Position(0, 6)));
+        m_echiquier.add(Pion.obtenirPiece(PieceBase.Couleur.NOIR, new Position(1, 6)));
+        m_echiquier.add(Pion.obtenirPiece(PieceBase.Couleur.NOIR, new Position(2, 6)));
+        m_echiquier.add(Pion.obtenirPiece(PieceBase.Couleur.NOIR, new Position(3, 6)));
+        m_echiquier.add(Pion.obtenirPiece(PieceBase.Couleur.NOIR, new Position(4, 6)));
+        m_echiquier.add(Pion.obtenirPiece(PieceBase.Couleur.NOIR, new Position(5, 6)));
+        m_echiquier.add(Pion.obtenirPiece(PieceBase.Couleur.NOIR, new Position(6, 6)));
+        m_echiquier.add(Pion.obtenirPiece(PieceBase.Couleur.NOIR, new Position(7, 6)));
 
         //Tours blanches
         m_echiquier.add(Tour.obtenirPiece(PieceBase.Couleur.BLANC, new Position(0, 0)));
@@ -87,7 +87,7 @@ public class TestEchiquier extends TestCase {
      * Méthode de test pour un nouvel échiquier
      */
     public void testEchiquierDepart() {
-        for(PieceBase piece : Echiquier.getInstance().getEchiquier()) {
+        for (PieceBase piece : Echiquier.getInstance().getEchiquier()) {
             assertTrue(m_echiquier.contains(piece));
         }
     }
@@ -108,7 +108,7 @@ public class TestEchiquier extends TestCase {
         assertTrue(Echiquier.getInstance().positionEstLibre(new Position(3, 3)));
 
         assertFalse(Echiquier.getInstance().positionEstLibre(new Position(0, 1)));
-        assertFalse(Echiquier.getInstance().positionEstLibre(new Position(5,7)));
+        assertFalse(Echiquier.getInstance().positionEstLibre(new Position(5, 7)));
 
     }
 
@@ -117,24 +117,35 @@ public class TestEchiquier extends TestCase {
      */
     public void testMouvementsPiece() {
         Echiquier echiquier = Echiquier.getInstance();
+
+        echiquier.resetEchiquier();
+        echiquier.getEchiquier().add(Roi.obtenirPiece(PieceBase.Couleur.NOIR, new Position(0, 0)));
+        echiquier.getEchiquier().add(Roi.obtenirPiece(PieceBase.Couleur.BLANC, new Position(7, 6)));
+        ArrayList<Position> t = echiquier.mouvementsPiece(new Position(7, 6));
+        ArrayList<Position> t2 = echiquier.getPiece(new Position(7, 6)).mouvementsPossible();
+
         echiquier.resetEchiquier();
 
-       echiquier.getEchiquier().add(Reine.obtenirPiece(PieceBase.Couleur.NOIR, new Position(4, 3)));
+        echiquier.getEchiquier().add(Roi.obtenirPiece(PieceBase.Couleur.NOIR, new Position(0, 0)));
+        echiquier.getEchiquier().add(Roi.obtenirPiece(PieceBase.Couleur.BLANC, new Position(7, 7)));
+        echiquier.getEchiquier().add(Reine.obtenirPiece(PieceBase.Couleur.NOIR, new Position(4, 3)));
 
-       echiquier.getEchiquier().add(Pion.obtenirPiece(PieceBase.Couleur.BLANC, new Position(3, 2)));
-       echiquier.getEchiquier().add(Pion.obtenirPiece(PieceBase.Couleur.BLANC, new Position(3, 3)));
-       echiquier.getEchiquier().add(Pion.obtenirPiece(PieceBase.Couleur.BLANC, new Position(3, 4)));
-       echiquier.getEchiquier().add(Pion.obtenirPiece(PieceBase.Couleur.BLANC, new Position(4, 2)));
-       echiquier.getEchiquier().add(Pion.obtenirPiece(PieceBase.Couleur.BLANC, new Position(4, 4)));
-       echiquier.getEchiquier().add(Pion.obtenirPiece(PieceBase.Couleur.BLANC, new Position(5, 2)));
-       echiquier.getEchiquier().add(Pion.obtenirPiece(PieceBase.Couleur.BLANC, new Position(5, 3)));
-       echiquier.getEchiquier().add(Pion.obtenirPiece(PieceBase.Couleur.BLANC, new Position(5, 4)));
+        echiquier.getEchiquier().add(Pion.obtenirPiece(PieceBase.Couleur.BLANC, new Position(3, 2)));
+        echiquier.getEchiquier().add(Pion.obtenirPiece(PieceBase.Couleur.BLANC, new Position(3, 3)));
+        echiquier.getEchiquier().add(Pion.obtenirPiece(PieceBase.Couleur.BLANC, new Position(3, 4)));
+        echiquier.getEchiquier().add(Pion.obtenirPiece(PieceBase.Couleur.BLANC, new Position(4, 2)));
+        echiquier.getEchiquier().add(Pion.obtenirPiece(PieceBase.Couleur.BLANC, new Position(4, 4)));
+        echiquier.getEchiquier().add(Pion.obtenirPiece(PieceBase.Couleur.BLANC, new Position(5, 2)));
+        echiquier.getEchiquier().add(Pion.obtenirPiece(PieceBase.Couleur.BLANC, new Position(5, 3)));
+        echiquier.getEchiquier().add(Pion.obtenirPiece(PieceBase.Couleur.BLANC, new Position(5, 4)));
 
         assertEquals(8, echiquier.mouvementsPiece(new Position(4, 3)).size());
 
 
         echiquier.resetEchiquier();
 
+        echiquier.getEchiquier().add(Roi.obtenirPiece(PieceBase.Couleur.NOIR, new Position(0, 0)));
+        echiquier.getEchiquier().add(Roi.obtenirPiece(PieceBase.Couleur.BLANC, new Position(7, 7)));
         echiquier.getEchiquier().add(Reine.obtenirPiece(PieceBase.Couleur.NOIR, new Position(4, 3)));
 
         echiquier.getEchiquier().add(Pion.obtenirPiece(PieceBase.Couleur.NOIR, new Position(3, 2)));
@@ -152,18 +163,21 @@ public class TestEchiquier extends TestCase {
         echiquier.resetEchiquier();
         echiquier.remplir();
 
-        PieceBase cavalierBlanc = echiquier.getPiece(new Position(6,0));
+        PieceBase cavalierBlanc = echiquier.getPiece(new Position(6, 0));
 
         assertEquals(PieceBase.TypePiece.CAVALIER, cavalierBlanc.getType());
 
         assertFalse(echiquier.mouvementsPiece(cavalierBlanc.getPosition()).contains(new Position(4, 1)));
 
-        cavalierBlanc.deplacer(new Position(5,2));
-        cavalierBlanc.deplacer(new Position(4,4));
-        Position cible = new Position(5,6);
+        cavalierBlanc.deplacer(new Position(5, 2));
+        cavalierBlanc.deplacer(new Position(4, 4));
+        Position cible = new Position(5, 6);
         assertTrue(echiquier.mouvementsPiece(cavalierBlanc.getPosition()).contains(cible));
 
         echiquier.resetEchiquier();
+        echiquier.getEchiquier().add(Roi.obtenirPiece(PieceBase.Couleur.NOIR, new Position(0, 0)));
+        echiquier.getEchiquier().add(Roi.obtenirPiece(PieceBase.Couleur.BLANC, new Position(7, 7)));
+
         echiquier.getEchiquier().add(Pion.obtenirPiece(PieceBase.Couleur.BLANC, new Position(3, 3)));
         echiquier.getEchiquier().add(Pion.obtenirPiece(PieceBase.Couleur.NOIR, new Position(2, 4)));
         echiquier.getEchiquier().add(Pion.obtenirPiece(PieceBase.Couleur.NOIR, new Position(3, 4)));
@@ -171,6 +185,9 @@ public class TestEchiquier extends TestCase {
         assertEquals(2, echiquier.mouvementsPiece(new Position(3, 3)).size());
 
         echiquier.resetEchiquier();
+        echiquier.getEchiquier().add(Roi.obtenirPiece(PieceBase.Couleur.NOIR, new Position(0, 0)));
+        echiquier.getEchiquier().add(Roi.obtenirPiece(PieceBase.Couleur.BLANC, new Position(7, 7)));
+
         echiquier.getEchiquier().add(Pion.obtenirPiece(PieceBase.Couleur.NOIR, new Position(3, 5)));
         echiquier.getEchiquier().add(Pion.obtenirPiece(PieceBase.Couleur.NOIR, new Position(2, 4)));
         echiquier.getEchiquier().add(Pion.obtenirPiece(PieceBase.Couleur.NOIR, new Position(3, 4)));
@@ -179,6 +196,9 @@ public class TestEchiquier extends TestCase {
 
 
         echiquier.resetEchiquier();
+        echiquier.getEchiquier().add(Roi.obtenirPiece(PieceBase.Couleur.NOIR, new Position(0, 0)));
+        echiquier.getEchiquier().add(Roi.obtenirPiece(PieceBase.Couleur.BLANC, new Position(7, 7)));
+
         echiquier.getEchiquier().add(Roi.obtenirPiece(PieceBase.Couleur.NOIR, new Position(3, 3)));
 
         echiquier.getEchiquier().add(Tour.obtenirPiece(PieceBase.Couleur.BLANC, new Position(1, 2)));
@@ -198,19 +218,19 @@ public class TestEchiquier extends TestCase {
         m_echiquier.remplir();
 
         assertEquals(32, m_echiquier.getEchiquier().size());
-        m_echiquier.set_pieceCourante(m_echiquier.getPiece(new Position(6,1)));
+        m_echiquier.set_pieceCourante(m_echiquier.getPiece(new Position(6, 1)));
         m_echiquier.deplacerPieceCourante(new Position(6, 3));
-        assertEquals(PieceBase.TypePiece.PION, m_echiquier.getPiece(new Position(6,3)).getType());
+        assertEquals(PieceBase.TypePiece.PION, m_echiquier.getPiece(new Position(6, 3)).getType());
 
-        m_echiquier.set_pieceCourante(m_echiquier.getPiece(new Position(6,3)));
+        m_echiquier.set_pieceCourante(m_echiquier.getPiece(new Position(6, 3)));
         m_echiquier.deplacerPieceCourante(new Position(6, 4));
-        assertEquals(PieceBase.TypePiece.PION, m_echiquier.getPiece(new Position(6,4)).getType());
+        assertEquals(PieceBase.TypePiece.PION, m_echiquier.getPiece(new Position(6, 4)).getType());
 
-        m_echiquier.set_pieceCourante(m_echiquier.getPiece(new Position(5,0)));
+        m_echiquier.set_pieceCourante(m_echiquier.getPiece(new Position(5, 0)));
         assertEquals(PieceBase.TypePiece.FOU, m_echiquier.get_pieceCourante().getType());
 
         m_echiquier.deplacerPieceCourante(new Position(7, 2));
-        m_echiquier.set_pieceCourante(m_echiquier.getPiece(new Position(7,2)));
+        m_echiquier.set_pieceCourante(m_echiquier.getPiece(new Position(7, 2)));
         m_echiquier.deplacerPieceCourante(new Position(3, 6));
         assertEquals(PieceBase.TypePiece.FOU, m_echiquier.getPiece(new Position(3, 6)).getType());
         assertEquals(31, m_echiquier.getEchiquier().size());
