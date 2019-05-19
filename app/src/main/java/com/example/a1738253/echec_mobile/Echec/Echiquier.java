@@ -184,7 +184,10 @@ public class Echiquier {
 
         for (PieceBase p : m_echiquier) {
             if (p.getCouleur() != p_couleur) {
-                zone.addAll(mouvementsPieceEnnemi(p.getPosition()));
+                for (Position pos : mouvementsPieceEnnemi(p.getPosition())) {
+                    zone.add(new Position(pos.getX(), pos.getY()));
+                }
+                //zone.addAll(mouvementsPieceEnnemi(p.getPosition()));
             }
         }
 
