@@ -318,7 +318,7 @@ public class Echiquier {
      */
     private ArrayList<Position> mouvementsPieceEnnemi(Position p_position) {
         PieceBase piece = getPiece(p_position);
-        ArrayList<Position> mouvements = piece.mouvementsPossible();
+        ArrayList<Position> mouvements = piece.zoneAttaques();
 
             if (piece.getType() == PieceBase.TypePiece.CAVALIER) {
                 for (Position p : piece.mouvementsPossible()) {
@@ -326,18 +326,8 @@ public class Echiquier {
                         mouvements.remove(p);
                     }
                 }
-            } else if (piece.getType() == PieceBase.TypePiece.PION) {
-                for (Position p : piece.mouvementsPossible()) {
-                    if (!positionEstLibre(p)) {
-                        mouvements.remove(p);
-                    }
-                }
-                for (Position p : piece.zoneAttaques()) {
-                    if (!positionEstLibre(p) && getPiece(p).getCouleur() != piece.getCouleur()) {
-                        mouvements.add(p);
-                    }
-                }
-            } else {
+            } 
+            else {
                 for (Position p : piece.mouvementsPossible()) {
                     if (contientPosition(p)) {
 
