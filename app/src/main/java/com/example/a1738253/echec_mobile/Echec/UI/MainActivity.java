@@ -1,10 +1,11 @@
-package com.example.a1738253.echec_mobile;
+package com.example.a1738253.echec_mobile.Echec.UI;
 
-import android.app.Dialog;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.example.a1738253.echec_mobile.R;
 
 public class MainActivity extends AppCompatActivity {
     @Override

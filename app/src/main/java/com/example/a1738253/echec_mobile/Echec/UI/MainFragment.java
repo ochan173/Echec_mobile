@@ -1,9 +1,7 @@
-package com.example.a1738253.echec_mobile;
+package com.example.a1738253.echec_mobile.Echec.UI;
 
-import android.app.Dialog;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.renderscript.Sampler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -12,16 +10,15 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-import com.example.a1738253.echec_mobile.Echec.DialogNomJoueur;
 import com.example.a1738253.echec_mobile.Echec.Echiquier;
 import com.example.a1738253.echec_mobile.Echec.Pieces.PieceBase;
 import com.example.a1738253.echec_mobile.Echec.Position;
+import com.example.a1738253.echec_mobile.R;
 
 import java.util.ArrayList;
 

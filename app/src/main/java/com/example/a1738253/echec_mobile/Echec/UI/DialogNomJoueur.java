@@ -1,4 +1,4 @@
-package com.example.a1738253.echec_mobile.Echec;
+package com.example.a1738253.echec_mobile.Echec.UI;
 
 import android.app.Activity;
 import android.app.Dialog;
