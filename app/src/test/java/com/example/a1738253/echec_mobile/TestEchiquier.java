@@ -253,6 +253,7 @@ public class TestEchiquier extends TestCase {
         assertEquals(Echiquier.etatPartie.NORMAL, echiquier.getEtat());
 
         echiquier.getEchiquier().add(Tour.obtenirPiece(PieceBase.Couleur.BLANC, new Position(0,7)));
+        echiquier.changerTour();
         assertEquals(Echiquier.etatPartie.ECHEC, echiquier.getEtat());
         echiquier.getEchiquier().add(Tour.obtenirPiece(PieceBase.Couleur.BLANC, new Position(1,7)));
         assertEquals(Echiquier.etatPartie.ECHECMATE, echiquier.getEtat());
