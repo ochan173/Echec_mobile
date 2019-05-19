@@ -21,6 +21,8 @@ import com.example.a1738253.echec_mobile.Echec.Echiquier;
 import com.example.a1738253.echec_mobile.Echec.Pieces.PieceBase;
 import com.example.a1738253.echec_mobile.Echec.Position;
 
+import java.util.ArrayList;
+
 public class MainFragment extends Fragment {
     TableLayout m_boardEchichier;
     private ImageButton[][] m_boardXY;
@@ -39,7 +41,6 @@ public class MainFragment extends Fragment {
 
         m_boardEchichier = v.findViewById(R.id.echiquier);
 
-        //onConfigurationChanged();
         genererBoard();
         m_orientation *= -1;
 
@@ -52,6 +53,7 @@ public class MainFragment extends Fragment {
 
     private void afficherEchiquier() {
         for (final PieceBase p : Echiquier.getInstance().getEchiquier()) {
+            //TODO if pas en echec
             m_boardXY[p.getPosition().getX()][p.getPosition().getY()].setImageDrawable(getResources().getDrawable(getRepresentation(p)));
             m_boardXY[p.getPosition().getX()][p.getPosition().getY()].setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -64,30 +66,62 @@ public class MainFragment extends Fragment {
     }
 
     public void afficherPositionsPossible(final PieceBase p_piece) {
-       // desactiverBoutons();
+        desactiverBoutons();
         final Position positionInitiale = new Position(p_piece.getPosition().getX(), p_piece.getPosition().getY());
+        m_boardXY[p_piece.getPosition().getX()][p_piece.getPosition().getY()].setEnabled(true);
+        final ArrayList<Position> positions = Echiquier.getInstance().mouvementsPiece(p_piece.getPosition());
 
-        for (final Position p : Echiquier.getInstance().mouvementsPiece(p_piece.getPosition())) {
+        for (final Position p : positions) {
+            m_boardXY[p.getX()][p.getY()].setEnabled(true);
             m_boardXY[p.getX()][p.getY()].setBackgroundColor(Color.rgb(0, 255, 0));
+
+            m_boardXY[p_piece.getPosition().getX()][p_piece.getPosition().getY()].setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    colorerEchiquier();
+                    activerBoutons();
+                    afficherEchiquier();
+                }
+            });
+
+            //TODO changer icone lorsque capture
             m_boardXY[p.getX()][p.getY()].setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Echiquier.getInstance().deplacerPieceCourante(p);
-                   // m_boardXY[p_piece.getPosition().getX()][p_piece.getPosition().getY()].setImageDrawable(null);
+                    if (!p.equals(p_piece.getPosition())) {
+                        Echiquier.getInstance().deplacerPieceCourante(p);
+                        m_boardXY[positionInitiale.getX()][positionInitiale.getY()].setImageDrawable(null);
+                        m_boardXY[positionInitiale.getX()][positionInitiale.getY()].setOnClickListener(null);
+                        desactiverOnClick(positions);
+                    }
                     colorerEchiquier();
+                    activerBoutons();
                     afficherEchiquier();
-                    m_boardXY[positionInitiale.getX()][positionInitiale.getY()].setImageDrawable(null);
                 }
             });
         }
     }
 
+    private void desactiverOnClick(ArrayList<Position> p_positions) {
+        for (Position position : p_positions) {
+            m_boardXY[position.getX()][position.getY()].setOnClickListener(null);
+        }
+    }
+
     private void desactiverBoutons() {
-      for (int y = 0; y <= 8; y++) {
-          for (int x = 0; x <= 8; x++) {
+      for (int y = 0; y <= 7; y++) {
+          for (int x = 0; x <= 7; x++) {
               m_boardXY[x][y].setEnabled(false);
           }
       }
+    }
+
+    private void activerBoutons() {
+        for (int y = 0; y <= 7; y++) {
+            for (int x = 0; x <= 7; x++) {
+                m_boardXY[x][y].setEnabled(true);
+            }
+        }
     }
 
     public int getRepresentation(PieceBase p) {
