@@ -18,19 +18,21 @@ public class Echiquier {
     private static Echiquier m_instance;
     private ArrayList<PieceBase> m_echiquier;
     private PieceBase m_pieceCourante;
-    private int tourJoueur = PieceBase.Couleur.BLANC.getDirection();
+    private PieceBase.Couleur tourJoueur = PieceBase.Couleur.BLANC;
 
-    public int getTourJoueur() {
+    public PieceBase.Couleur getTourJoueur() {
         return tourJoueur;
     }
-
-
 
     /**
      * Permet de changer le tour du joueur actif
      */
     public void changerTour() {
-        tourJoueur *= -1;
+        switch (tourJoueur) {
+            case NOIR:tourJoueur = PieceBase.Couleur.BLANC;break;
+            case BLANC:tourJoueur = PieceBase.Couleur.NOIR;break;
+            default: throw new IllegalArgumentException();
+        }
     }
 
     /**
@@ -211,7 +213,7 @@ public class Echiquier {
 
     private PieceBase obtenirRoiCouleur() {
         for (PieceBase p : m_echiquier) {
-            if (p.getCouleur().getDirection() == tourJoueur && p.getType() == PieceBase.TypePiece.ROI) {
+            if (p.getCouleur() == tourJoueur && p.getType() == PieceBase.TypePiece.ROI) {
                 return p;
             }
         }
