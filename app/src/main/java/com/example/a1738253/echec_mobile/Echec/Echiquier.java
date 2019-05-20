@@ -648,13 +648,13 @@ public class Echiquier {
         m_echiquier.add(Reine.obtenirPiece(PieceBase.Couleur.BLANC, new Position(3, 0)));
 
         //Reine noire
-        m_echiquier.add(Reine.obtenirPiece(PieceBase.Couleur.NOIR, new Position(4, 7)));
+        m_echiquier.add(Reine.obtenirPiece(PieceBase.Couleur.NOIR, new Position(3, 7)));
 
         //Roi blanc
         m_echiquier.add(Roi.obtenirPiece(PieceBase.Couleur.BLANC, new Position(4, 0)));
 
         //Roi noir
-        m_echiquier.add(Roi.obtenirPiece(PieceBase.Couleur.NOIR, new Position(3, 7)));
+        m_echiquier.add(Roi.obtenirPiece(PieceBase.Couleur.NOIR, new Position(4, 7)));
     }
 
     /**
