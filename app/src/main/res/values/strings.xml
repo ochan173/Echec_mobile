@@ -6,4 +6,5 @@
     <string name="debut_partie">Débuter la partie </string>
     <string name="nouvelle_partie">Nouvelle partie </string>
     <string name="nom_invalide">Nom invalide</string>
+    <string name="reset">Reset</string>
 </resources>

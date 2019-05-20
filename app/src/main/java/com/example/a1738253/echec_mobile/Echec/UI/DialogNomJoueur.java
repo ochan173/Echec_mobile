@@ -12,9 +12,9 @@ import com.example.a1738253.echec_mobile.R;
 public class DialogNomJoueur extends Dialog {
     private EditText m_joueur1, m_joueur2;
     private Button m_confirmer;
-    public String m_nomJ1, m_nomJ2;
+    static String m_nomJ1, m_nomJ2;
 
-    public DialogNomJoueur(Activity p_activity) {
+    DialogNomJoueur(Activity p_activity) {
         super(p_activity);
     }
 
