@@ -3,7 +3,7 @@ package com.example.a1738253.echec_mobile;
 import com.example.a1738253.echec_mobile.echec.Echiquier;
 import com.example.a1738253.echec_mobile.echec.Position;
 
-import com.example.a1738253.echec_mobile.echec.pieces.*;
+import com.example.a1738253.echec_mobile.echec.Pieces.*;
 import junit.framework.TestCase;
 
 import java.util.ArrayList;

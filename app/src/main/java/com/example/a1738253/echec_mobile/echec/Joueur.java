@@ -1,6 +1,6 @@
 package com.example.a1738253.echec_mobile.echec;
 
-import com.example.a1738253.echec_mobile.echec.pieces.PieceBase;
+import com.example.a1738253.echec_mobile.echec.Pieces.PieceBase;
 
 /**
  * Classe de base pour un joueur

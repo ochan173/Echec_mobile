@@ -1,6 +1,8 @@
-package com.example.a1738253.echec_mobile.testPiece;
+package com.example.a1738253.echec_mobile.TestPiece;
 
-import com.example.a1738253.echec_mobile.echec.pieces.PieceBase;
+import com.example.a1738253.echec_mobile.echec.Pieces.PieceBase;
+import com.example.a1738253.echec_mobile.echec.Pieces.Roi;
+import com.example.a1738253.echec_mobile.echec.Pieces.Tour;
 import com.example.a1738253.echec_mobile.echec.Position;
 import junit.framework.TestCase;
 
@@ -86,5 +88,19 @@ public abstract class TestPieceBase extends TestCase {
         for (Position p :m_pieceBase.zoneAttaques()) {
             assertTrue(mouvementsObtenu.contains(p));
         }
+    }
+
+    /**
+     * Test pour le roc
+     */
+    public void testRoquer() {
+        PieceBase roi = Roi.obtenirPiece(PieceBase.Couleur.BLANC, new Position(4, 0));
+        PieceBase tour = Tour.obtenirPiece(PieceBase.Couleur.BLANC, new Position(7, 0));
+
+        roi.roquer(new Position(7, 0));
+        tour.roquer(new Position(4, 0));
+
+        assertEquals(new Position(7, 0), roi.getPosition());
+        assertEquals(new Position(4, 0), tour.getPosition());
     }
 }

@@ -20,7 +20,7 @@ import android.widget.Toast;
 
 import com.example.a1738253.echec_mobile.echec.Echiquier;
 import com.example.a1738253.echec_mobile.echec.Joueur;
-import com.example.a1738253.echec_mobile.echec.pieces.PieceBase;
+import com.example.a1738253.echec_mobile.echec.Pieces.PieceBase;
 import com.example.a1738253.echec_mobile.echec.Position;
 import com.example.a1738253.echec_mobile.R;
 

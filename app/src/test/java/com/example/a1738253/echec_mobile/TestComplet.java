@@ -1,6 +1,6 @@
 package com.example.a1738253.echec_mobile;
 
-import com.example.a1738253.echec_mobile.testPiece.TestCompletPieces;
+import com.example.a1738253.echec_mobile.TestPiece.TestCompletPieces;
 
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
