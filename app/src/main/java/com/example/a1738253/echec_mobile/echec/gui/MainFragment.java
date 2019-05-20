@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.res.ResourcesCompat;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -68,7 +69,7 @@ public class MainFragment extends Fragment {
 
             if (Echiquier.getInstance().getEtat() != Echiquier.etatPartie.ECHECMATE) {
 
-                m_boardXY[p.getPosition().getX()][p.getPosition().getY()].setImageDrawable(getResources().getDrawable(getRepresentation(p)));
+                m_boardXY[p.getPosition().getX()][p.getPosition().getY()].setImageDrawable(ResourcesCompat.getDrawable(getResources(), getRepresentation(p), null));
 
                 if (p.getCouleur() == Echiquier.getInstance().getTourJoueur()) {
                     jouerTour(p);
