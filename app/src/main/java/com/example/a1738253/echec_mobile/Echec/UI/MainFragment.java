@@ -10,12 +10,15 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.a1738253.echec_mobile.Echec.Echiquier;
+import com.example.a1738253.echec_mobile.Echec.Joueur;
 import com.example.a1738253.echec_mobile.Echec.Pieces.PieceBase;
 import com.example.a1738253.echec_mobile.Echec.Position;
 import com.example.a1738253.echec_mobile.R;
@@ -25,6 +28,9 @@ import java.util.ArrayList;
 public class MainFragment extends Fragment {
     TableLayout m_boardEchichier;
     private ImageButton[][] m_boardXY;
+    private TextView m_tour;
+    private Joueur m_joueur1, m_joueur2;
+    private Button m_reset;
     private static int m_orientation = 1;
 
     @Override
@@ -32,7 +38,9 @@ public class MainFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         DialogNomJoueur dlg = new DialogNomJoueur(getActivity());
+
         dlg.show();
+
     }
 
     @Nullable
@@ -40,9 +48,15 @@ public class MainFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater p_inflater, @Nullable ViewGroup p_container, @Nullable Bundle savedInstanceState) {
        View v = p_inflater.inflate(R.layout.fragment_main, p_container, false);
 
+        m_joueur1 = new Joueur(DialogNomJoueur.m_nomJ1);
+        m_joueur1.set_couleur(PieceBase.Couleur.BLANC);
+        m_joueur2 = new Joueur(DialogNomJoueur.m_nomJ2);
+        m_joueur2.set_couleur(PieceBase.Couleur.NOIR);
+
         m_boardEchichier = v.findViewById(R.id.echiquier);
 
         genererBoard();
+        genererFooter();
         m_orientation *= -1;
 
         Echiquier.getInstance().remplir();
@@ -55,24 +69,19 @@ public class MainFragment extends Fragment {
     private void afficherEchiquier() {
         for (final PieceBase p : Echiquier.getInstance().getEchiquier()) {
 
-            //TODO if pas en echec
-            m_boardXY[p.getPosition().getX()][p.getPosition().getY()].setImageDrawable(getResources().getDrawable(getRepresentation(p)));
-            jouerTour(p);
-//            if (Echiquier.getInstance().mouvementsPiece(p.getPosition()).size() == 0) {
-//                m_boardXY[p.getPosition().getX()][p.getPosition().getY()].setEnabled(false);
-//                continue;
-//            }
-//
-//            if (p.getType() == PieceBase.TypePiece.ROI) {
-//                m_boardXY[p.getPosition().getX()][p.getPosition().getY()].setEnabled(true);
-//            }
-//                m_boardXY[p.getPosition().getX()][p.getPosition().getY()].setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        Echiquier.getInstance().set_pieceCourante(p);
-//                        afficherPositionsPossible(p);
-//                    }
-//                });
+            if (Echiquier.getInstance().getEtat() != Echiquier.etatPartie.ECHECMATE) {
+
+                m_boardXY[p.getPosition().getX()][p.getPosition().getY()].setImageDrawable(getResources().getDrawable(getRepresentation(p)));
+
+                if (p.getCouleur() == Echiquier.getInstance().getTourJoueur()) {
+                    jouerTour(p);
+                } else {
+                    desactiverCouleur();
+                }
+            }
+            else {
+                gameOver();
+            }
         }
     }
 
@@ -118,6 +127,7 @@ public class MainFragment extends Fragment {
                 public void onClick(View v) {
                     if (!p.equals(p_piece.getPosition())) {
                         Echiquier.getInstance().deplacerPieceCourante(p);
+                        m_tour.setText(Echiquier.getInstance().getTourJoueur().toString());
                         m_boardXY[positionInitiale.getX()][positionInitiale.getY()].setImageDrawable(null);
                         m_boardXY[positionInitiale.getX()][positionInitiale.getY()].setOnClickListener(null);
                         desactiverOnClick(positions);
@@ -130,12 +140,45 @@ public class MainFragment extends Fragment {
         }
     }
 
+    private void gameOver()  {
+        desactiverBoutons();
+        String vainqueur = getVainqueur();
+        Toast toast = Toast.makeText(getContext(), "Echec et Math, Vainqueur : " + vainqueur, Toast.LENGTH_LONG);
+        toast.show();
+    }
+
+    private void nettoyerEchiquier() {
+        for (int y = 0; y <= 7; y++) {
+            for (int x = 0; x <= 7; x++) {
+                m_boardXY[x][y].setImageDrawable(null);
+            }
+        }
+    }
+
+    private String getVainqueur() {
+        Echiquier.getInstance().changerTour();
+
+        if (Echiquier.getInstance().getTourJoueur() == m_joueur1.get_couleur()) {
+            return m_joueur1.get_nom();
+        }
+        else {
+            return m_joueur2.get_nom();
+        }
+    }
+
     private void desactiverOnClick(ArrayList<Position> p_positions) {
         for (Position position : p_positions) {
             m_boardXY[position.getX()][position.getY()].setOnClickListener(null);
         }
     }
 
+    private void desactiverCouleur() {
+        for (PieceBase pieceBase : Echiquier.getInstance().getEchiquier()) {
+            if (pieceBase.getCouleur() != Echiquier.getInstance().getTourJoueur()) {
+                m_boardXY[pieceBase.getPosition().getX()][pieceBase.getPosition().getY()].setOnClickListener(null);
+            }
+        }
+    }
 
     private void desactiverBoutons() {
       for (int y = 0; y <= 7; y++) {
@@ -177,16 +220,35 @@ public class MainFragment extends Fragment {
     }
 
 
-    public void genererFooter() {
+    private void genererFooter() {
         TableRow footer = new TableRow(this.getContext());
         TextView tourJoueur = new TextView(this.getContext());
-        tourJoueur.setText(R.string.tour_joueur);
-        TextView joueur = new TextView(this.getContext());
-        joueur.setText("test");
 
+        m_reset = new Button(getContext());
+        m_reset.setLayoutParams(new TableLayout.LayoutParams
+                (TableLayout.LayoutParams.WRAP_CONTENT,TableLayout.LayoutParams.WRAP_CONTENT));
+        m_reset.setText(R.string.reset);
+
+        tourJoueur.setText(R.string.tour_joueur);
+        m_tour = new TextView(this.getContext());
+        m_tour.setText(Echiquier.getInstance().getTourJoueur().toString());
         TableLayout.LayoutParams tableRowParams=
                 new TableLayout.LayoutParams
-                        (TableLayout.LayoutParams.MATCH_PARENT,TableLayout.LayoutParams.WRAP_CONTENT);
+                        (TableLayout.LayoutParams.WRAP_CONTENT,TableLayout.LayoutParams.WRAP_CONTENT);
+        m_reset.setBackgroundColor(Color.GRAY);
+
+        m_reset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Echiquier.getInstance().resetEchiquier();
+                Echiquier.getInstance().remplir();
+
+                nettoyerEchiquier();
+                afficherEchiquier();
+                m_tour.setText(Echiquier.getInstance().getTourJoueur().toString());
+                activerBoutons();
+            }
+        });
 
         int leftMargin=10;
         int topMargin=35;
@@ -198,7 +260,8 @@ public class MainFragment extends Fragment {
         footer.setLayoutParams(tableRowParams);
 
         footer.addView(tourJoueur);
-        footer.addView(joueur);
+        footer.addView(m_tour);
+        footer.addView(m_reset, 20, 100);
         m_boardEchichier.addView(footer);
     }
 
@@ -256,7 +319,6 @@ public class MainFragment extends Fragment {
             m_boardEchichier.addView(rangee);
         }
         colorerEchiquier();
-        genererFooter();
     }
 
 

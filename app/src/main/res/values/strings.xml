@@ -1,9 +1,10 @@
 <resources>
     <string name="app_name">Echec_mobile</string>
-    <string name="tour_joueur">Tour : </string>
+    <string name="tour_joueur">Tour :</string>
     <string name="nom_joueur1">Nom joueur 1 </string>
     <string name="nom_joueur2">Nom joueur 2 </string>
     <string name="debut_partie">Débuter la partie </string>
     <string name="nouvelle_partie">Nouvelle partie </string>
     <string name="nom_invalide">Nom invalide</string>
+    <string name="reset">Reset</string>
 </resources>

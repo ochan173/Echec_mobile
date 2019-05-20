@@ -1,5 +1,6 @@
 package com.example.a1738253.echec_mobile.Echec.UI;
 
+import android.app.Dialog;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
