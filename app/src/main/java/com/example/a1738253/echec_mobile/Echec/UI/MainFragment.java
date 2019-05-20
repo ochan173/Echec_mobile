@@ -67,22 +67,21 @@ public class MainFragment extends Fragment {
     }
 
     private void afficherEchiquier() {
-        if (Echiquier.getInstance().getEtat() != Echiquier.etatPartie.ECHECMATE) {
+        for (final PieceBase p : Echiquier.getInstance().getEchiquier()) {
 
-            for (final PieceBase p : Echiquier.getInstance().getEchiquier()) {
+            if (Echiquier.getInstance().getEtat() != Echiquier.etatPartie.ECHECMATE) {
 
                 m_boardXY[p.getPosition().getX()][p.getPosition().getY()].setImageDrawable(getResources().getDrawable(getRepresentation(p)));
 
                 if (p.getCouleur() == Echiquier.getInstance().getTourJoueur()) {
                     jouerTour(p);
-                }
-                else {
+                } else {
                     desactiverCouleur();
                 }
             }
-        }
-        else {
-            gameOver();
+            else {
+                gameOver();
+            }
         }
     }
 
@@ -247,6 +246,7 @@ public class MainFragment extends Fragment {
                 nettoyerEchiquier();
                 afficherEchiquier();
                 m_tour.setText(Echiquier.getInstance().getTourJoueur().toString());
+                activerBoutons();
             }
         });
 
