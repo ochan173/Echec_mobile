@@ -1,4 +1,4 @@
-package com.example.a1738253.echec_mobile.Echec.UI;
+package com.example.a1738253.echec_mobile.echec.gui;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -9,7 +9,7 @@ import android.widget.EditText;
 
 import com.example.a1738253.echec_mobile.R;
 
-public class DialogNomJoueur extends Dialog {
+class DialogNomJoueur extends Dialog {
     static boolean result = true;
     private EditText m_joueur1, m_joueur2;
     //private Button m_confirmer;

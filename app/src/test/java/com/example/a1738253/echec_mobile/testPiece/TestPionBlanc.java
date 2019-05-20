@@ -1,8 +1,8 @@
-package com.example.a1738253.echec_mobile.TestPiece;
+package com.example.a1738253.echec_mobile.testPiece;
 
-import com.example.a1738253.echec_mobile.Echec.Pieces.PieceBase;
-import com.example.a1738253.echec_mobile.Echec.Pieces.Pion;
-import com.example.a1738253.echec_mobile.Echec.Position;
+import com.example.a1738253.echec_mobile.echec.pieces.PieceBase;
+import com.example.a1738253.echec_mobile.echec.pieces.Pion;
+import com.example.a1738253.echec_mobile.echec.Position;
 
 import java.util.ArrayList;
 
@@ -25,7 +25,7 @@ public class TestPionBlanc extends TestPieceBase {
 
     @Override
     protected ArrayList<Position> obtenirMouvementPossible() {
-        ArrayList<Position> positionsAttendues = new ArrayList<Position>();
+        ArrayList<Position> positionsAttendues = new ArrayList<>();
         positionsAttendues.add(new Position(1,2));
         positionsAttendues.add(new Position(1,3));
         return positionsAttendues;

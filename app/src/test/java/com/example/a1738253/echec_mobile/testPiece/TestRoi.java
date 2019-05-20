@@ -1,8 +1,8 @@
-package com.example.a1738253.echec_mobile.TestPiece;
+package com.example.a1738253.echec_mobile.testPiece;
 
-import com.example.a1738253.echec_mobile.Echec.Pieces.PieceBase;
-import com.example.a1738253.echec_mobile.Echec.Pieces.Roi;
-import com.example.a1738253.echec_mobile.Echec.Position;
+import com.example.a1738253.echec_mobile.echec.pieces.PieceBase;
+import com.example.a1738253.echec_mobile.echec.pieces.Roi;
+import com.example.a1738253.echec_mobile.echec.Position;
 
 import java.util.ArrayList;
 

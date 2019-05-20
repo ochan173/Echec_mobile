@@ -1,4 +1,4 @@
-package com.example.a1738253.echec_mobile.Echec.UI;
+package com.example.a1738253.echec_mobile.echec.gui;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -17,17 +17,16 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.a1738253.echec_mobile.Echec.Echiquier;
-import com.example.a1738253.echec_mobile.Echec.Joueur;
-import com.example.a1738253.echec_mobile.Echec.Pieces.PieceBase;
-import com.example.a1738253.echec_mobile.Echec.Position;
+import com.example.a1738253.echec_mobile.echec.Echiquier;
+import com.example.a1738253.echec_mobile.echec.Joueur;
+import com.example.a1738253.echec_mobile.echec.pieces.PieceBase;
+import com.example.a1738253.echec_mobile.echec.Position;
 import com.example.a1738253.echec_mobile.R;
 
 import java.util.ArrayList;
 
 public class MainFragment extends Fragment {
-    TableLayout m_boardEchichier;
-    private static boolean debut = true;
+    private TableLayout m_boardEchichier;
     private ImageButton[][] m_boardXY;
     private TextView m_tour;
     private Joueur m_joueur1, m_joueur2;
@@ -264,7 +263,7 @@ public class MainFragment extends Fragment {
     }
 
     private void colorerEchiquier() {
-        int couleur = 0;
+        int couleur;
 
         for (int y = 0; y <= 7; y++) {
 

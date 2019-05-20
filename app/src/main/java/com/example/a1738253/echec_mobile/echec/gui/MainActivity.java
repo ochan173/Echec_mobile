@@ -1,4 +1,4 @@
-package com.example.a1738253.echec_mobile.Echec.UI;
+package com.example.a1738253.echec_mobile.echec.gui;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

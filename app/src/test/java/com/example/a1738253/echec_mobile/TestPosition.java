@@ -1,8 +1,10 @@
 package com.example.a1738253.echec_mobile;
 
-import com.example.a1738253.echec_mobile.Echec.Position;
+import com.example.a1738253.echec_mobile.echec.Position;
 
 import junit.framework.TestCase;
+
+import static org.junit.Assert.assertNotEquals;
 
 /**
  * Classe de tests pour une position.
@@ -43,7 +45,7 @@ public class TestPosition extends TestCase {
         assertEquals(positionA, positionB);
 
         Position positionC = new Position(4,4);
-        assertFalse(positionA.equals(positionC));
+        assertNotEquals(positionA, positionC);
 
         // Réflexivité
         assertEquals(positionA, positionA);
@@ -58,7 +60,7 @@ public class TestPosition extends TestCase {
 
         // Constance
         assertNotNull(positionA);
-        assertFalse(positionA.equals("Position"));
+        assertNotEquals("Position", positionA);
     }
 
     /**

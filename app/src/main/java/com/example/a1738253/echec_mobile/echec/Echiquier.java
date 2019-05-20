@@ -1,7 +1,6 @@
-package com.example.a1738253.echec_mobile.Echec;
+package com.example.a1738253.echec_mobile.echec;
 
-import com.example.a1738253.echec_mobile.Echec.Pieces.PieceBase;
-import com.example.a1738253.echec_mobile.Echec.Pieces.*;
+import com.example.a1738253.echec_mobile.echec.pieces.*;
 
 import java.util.ArrayList;
 
@@ -720,10 +719,6 @@ public class Echiquier {
 
     public PieceBase.Couleur getTourJoueur() {
         return tourJoueur;
-    }
-
-    private void resetTour() {
-        tourJoueur = PieceBase.Couleur.BLANC;
     }
 
     public ArrayList<PieceBase> getEchiquier() {

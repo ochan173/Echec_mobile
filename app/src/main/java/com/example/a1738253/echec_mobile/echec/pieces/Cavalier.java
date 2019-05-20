@@ -1,7 +1,7 @@
-package com.example.a1738253.echec_mobile.Echec.Pieces;
+package com.example.a1738253.echec_mobile.echec.pieces;
 
-import com.example.a1738253.echec_mobile.Echec.Position;
-import com.example.a1738253.echec_mobile.Echec.PositionInvalideException;
+import com.example.a1738253.echec_mobile.echec.Position;
+import com.example.a1738253.echec_mobile.echec.PositionInvalideException;
 
 
 import java.util.ArrayList;

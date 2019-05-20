@@ -1,6 +1,6 @@
-package com.example.a1738253.echec_mobile.Echec.Pieces;
+package com.example.a1738253.echec_mobile.echec.pieces;
 
-import com.example.a1738253.echec_mobile.Echec.Position;
+import com.example.a1738253.echec_mobile.echec.Position;
 
 import java.util.ArrayList;
 

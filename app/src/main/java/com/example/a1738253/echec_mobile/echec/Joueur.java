@@ -1,6 +1,6 @@
-package com.example.a1738253.echec_mobile.Echec;
+package com.example.a1738253.echec_mobile.echec;
 
-import com.example.a1738253.echec_mobile.Echec.Pieces.PieceBase;
+import com.example.a1738253.echec_mobile.echec.pieces.PieceBase;
 
 /**
  * Classe de base pour un joueur
@@ -9,7 +9,7 @@ import com.example.a1738253.echec_mobile.Echec.Pieces.PieceBase;
  * @author David Goulet
  */
 public class Joueur {
-    private String m_nom;
+    private final String m_nom;
     private PieceBase.Couleur m_couleur;
 
     public Joueur(String p_nom) {

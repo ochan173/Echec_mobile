@@ -1,16 +1,16 @@
-package com.example.a1738253.echec_mobile.Echec.Pieces;
+package com.example.a1738253.echec_mobile.echec.pieces;
 
-import com.example.a1738253.echec_mobile.Echec.Position;
+import com.example.a1738253.echec_mobile.echec.Position;
 
 import java.util.ArrayList;
 
 /**
- * Classe de la pièce Fou.
+ * Classe de la pièce Reine.
  *
  * @author Olivier Chan
- * @author  David Goulet
+ * @author David Goulet
  */
-public class Fou extends PieceBase {
+public class Reine extends PieceBase {
 
     /**
      * Constructeur de base pour une pièce.
@@ -18,25 +18,40 @@ public class Fou extends PieceBase {
      * @param p_couleur  la couleur que la pièce recevera.
      * @param p_position La position initiale de la pièce.
      */
-    private Fou(Couleur p_couleur, Position p_position) {
-        super(p_couleur, TypePiece.FOU, p_position);
+    private Reine(Couleur p_couleur, Position p_position) {
+        super(p_couleur, TypePiece.REINE, p_position);
     }
 
     /**
-     * Permet d'obtenir une pièce Fou.
+     * Permet d'obtenir une pièce Reine.
      * @param p_couleur couleur de la pièce.
      * @param p_position position de la pièce à la création.
-     * @return un nouveau Fou.
+     * @return un nouveau Reine.
      */
     public static PieceBase obtenirPiece(Couleur p_couleur, Position p_position) {
-        return new Fou(p_couleur, p_position);
+        return new Reine(p_couleur, p_position);
     }
 
     @Override
     public ArrayList<Position> mouvementsPossible() {
+        int x = this.getPosition().getX();
+        int y = this.getPosition().getY();
+
         ArrayList<Position> mouvements = new ArrayList<>();
 
-        for (int i = 1; i < 8 ; i++) {
+        for (int i = 0; i < 8;) {
+
+            // Position horizontal
+            if (i != x) {
+                mouvements.add(new Position(i, y));
+            }
+
+            // Position vertical
+            if (i != y) {
+                mouvements.add(new Position(x, i));
+            }
+
+            i++;
 
             // Positions vers la Droite
             if (this.getPosition().getX() + i <= 7) {

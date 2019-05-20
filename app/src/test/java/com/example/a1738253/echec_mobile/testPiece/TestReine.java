@@ -1,8 +1,8 @@
-package com.example.a1738253.echec_mobile.TestPiece;
+package com.example.a1738253.echec_mobile.testPiece;
 
-import com.example.a1738253.echec_mobile.Echec.Pieces.PieceBase;
-import com.example.a1738253.echec_mobile.Echec.Pieces.Reine;
-import com.example.a1738253.echec_mobile.Echec.Position;
+import com.example.a1738253.echec_mobile.echec.pieces.PieceBase;
+import com.example.a1738253.echec_mobile.echec.pieces.Reine;
+import com.example.a1738253.echec_mobile.echec.Position;
 
 import java.util.ArrayList;
 
@@ -25,7 +25,7 @@ public class TestReine extends TestPieceBase {
 
     @Override
     protected ArrayList<Position> obtenirMouvementPossible() {
-        ArrayList<Position> positionsAttendues = new ArrayList<Position>();
+        ArrayList<Position> positionsAttendues = new ArrayList<>();
         // Vertical Haut
         positionsAttendues.add(new Position(1,2));
         positionsAttendues.add(new Position(1,3));
