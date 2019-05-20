@@ -25,6 +25,7 @@ import com.example.a1738253.echec_mobile.echec.Position;
 import com.example.a1738253.echec_mobile.R;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class MainFragment extends Fragment {
     private TableLayout m_boardEchichier;
@@ -293,12 +294,13 @@ public class MainFragment extends Fragment {
         m_boardXY = new ImageButton[8][8];
 
         DisplayMetrics displaymetrics = new DisplayMetrics();
-        getActivity().getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
+        Objects.requireNonNull(getActivity()).getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
+
         int height = displaymetrics.heightPixels;
         int width = displaymetrics.widthPixels;
 
         TypedValue outValue = new TypedValue();
-        getContext().getTheme().resolveAttribute(R.attr.selectableItemBackground, outValue, true);
+        Objects.requireNonNull(getContext()).getTheme().resolveAttribute(R.attr.selectableItemBackground, outValue, true);
 
         for (int y = 7; y >= 0; y--) {
             TableRow rangee = new TableRow(this.getContext());
