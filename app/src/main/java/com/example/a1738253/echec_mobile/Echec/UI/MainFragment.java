@@ -31,25 +31,11 @@ public class MainFragment extends Fragment {
     private ImageButton[][] m_boardXY;
     private TextView m_tour;
     private Joueur m_joueur1, m_joueur2;
-//    private Button m_reset;
     private static int m_orientation = 1;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-//        DialogNomJoueur dlg = new DialogNomJoueur(getActivity());
-//    if (debut) {
-//        dlg.show();
-//        m_joueur1 = new Joueur(DialogNomJoueur.m_nomJ1);
-//        m_joueur1.set_couleur(PieceBase.Couleur.BLANC);
-//
-//        m_joueur2 = new Joueur(DialogNomJoueur.m_nomJ2);
-//        m_joueur2.set_couleur(PieceBase.Couleur.NOIR);
-//
-//        debut = DialogNomJoueur.result;
-//    }
-
     }
 
     @Nullable
@@ -65,14 +51,7 @@ public class MainFragment extends Fragment {
 
             m_joueur2 = new Joueur(DialogNomJoueur.m_nomJ2);
             m_joueur2.set_couleur(PieceBase.Couleur.NOIR);
-
-            //debut = DialogNomJoueur.result;
         }
-
-        //m_joueur1 = new Joueur(DialogNomJoueur.m_nomJ1);
-        //m_joueur1.set_couleur(PieceBase.Couleur.BLANC);
-        //m_joueur2 = new Joueur(DialogNomJoueur.m_nomJ2);
-        //m_joueur2.set_couleur(PieceBase.Couleur.NOIR);
 
         m_boardEchichier = v.findViewById(R.id.echiquier);
 
@@ -238,7 +217,6 @@ public class MainFragment extends Fragment {
         }
     }
 
-
     private void genererFooter() {
         Button m_reset;
         TableRow footer = new TableRow(this.getContext());
@@ -309,6 +287,7 @@ public class MainFragment extends Fragment {
             }
         }
     }
+
 
     public void genererBoard() {
         m_boardXY = new ImageButton[8][8];
