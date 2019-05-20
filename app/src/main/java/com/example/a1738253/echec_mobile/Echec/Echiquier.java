@@ -63,7 +63,7 @@ public class Echiquier {
     /**
      * Méthode interne utilisé afin de calculé les mouvements d'une pièce ennemi
      * Elle est sensiblement la même chose que mouvementPieces, avec certaines contraintes en moins
-     *
+     * <p>
      * Permet d'obtenir les mouvements valides d'une pièce en fonction des autres pièces sur l'échiquier
      * si la piece sur la position est de même couleur on la retire de la liste de mouvements
      * si la piece sur la position est de de couleur différente est de la même couleur on la laisse pour la manger
@@ -217,16 +217,6 @@ public class Echiquier {
     public ArrayList<Position> mouvementsPiece(Position p_position) {
         PieceBase piece = getPiece(p_position);
         ArrayList<Position> mouvements = piece.mouvementsPossible();
-
-        if (piece.getType() == PieceBase.TypePiece.ROI) {
-
-            ArrayList<Position> zoneDanger = zoneDangerRoi(piece.getCouleur());
-            for (Position p : piece.mouvementsPossible()) {
-                if (zoneDanger.contains(p)) {
-                    mouvements.remove(p);
-                }
-            }
-        }
 
         ArrayList<PieceBase> menace = detectionEchec(obtenirRoiCouleur());
         if (menace.size() > 0) {
@@ -385,6 +375,16 @@ public class Echiquier {
             }
         }
 
+        if (piece.getType() == PieceBase.TypePiece.ROI) {
+            mouvements.addAll(roquerRoi());
+            ArrayList<Position> zoneDanger = zoneDangerRoi(piece.getCouleur());
+            for (Position p : piece.mouvementsPossible()) {
+                if (zoneDanger.contains(p)) {
+                    mouvements.remove(p);
+                }
+            }
+        }
+
         return mouvements;
     }
 
@@ -425,6 +425,63 @@ public class Echiquier {
     }
 
     /**
+     * Permet d'obtenir les tours roquables avec le roi
+     *
+     * @return la collections des positions des tours roquables
+     */
+    private ArrayList<Position> roquerRoi() {
+        ArrayList<Position> tours = new ArrayList<>();
+        PieceBase roi = obtenirRoiCouleur();
+
+        if (!roi.getABougee()) {
+
+            int hauteurTours;
+            if (roi.getCouleur() == PieceBase.Couleur.BLANC) {
+                hauteurTours = 0;
+            } else {
+                hauteurTours = 7;
+            }
+
+            PieceBase tour1 = getPiece(new Position(0, hauteurTours));
+            if (tour1 != null) {
+
+                if (!tour1.getABougee()) {
+                    boolean cheminLibre = true;
+
+                    for (Position p : cheminEntrePieces(roi.getPosition(), tour1.getPosition())) {
+                        if (contientPosition(p)) {
+                            cheminLibre = false;
+                            break;
+                        }
+                    }
+                    if (cheminLibre) {
+                        tours.add(tour1.getPosition());
+                    }
+                }
+            }
+            PieceBase tour2 = getPiece(new Position(7, hauteurTours));
+            if (tour2 != null) {
+
+                if (!tour2.getABougee()) {
+                    boolean cheminLibre = true;
+
+                    for (Position p : cheminEntrePieces(roi.getPosition(), tour2.getPosition())) {
+                        if (contientPosition(p)) {
+                            cheminLibre = false;
+                            break;
+                        }
+                    }
+                    if (cheminLibre) {
+                        tours.add(tour2.getPosition());
+                    }
+                }
+            }
+        }
+
+        return tours;
+    }
+
+    /**
      * Permet d'obtenir toutes les positions entre 2 positions
      *
      * @param p_position1 première position
@@ -436,21 +493,21 @@ public class Echiquier {
 
         if (p_position1.getY() == p_position2.getY()) {
             if (p_position1.getX() > p_position2.getX()) {
-                for (int i = p_position2.getX(); i < p_position1.getX(); i++) {
+                for (int i = p_position2.getX() + 1; i < p_position1.getX(); i++) {
                     chemin.add(new Position(i, p_position2.getY()));
                 }
             } else {
-                for (int i = p_position1.getX(); i < p_position2.getX(); i++) {
+                for (int i = p_position1.getX() + 1; i < p_position2.getX(); i++) {
                     chemin.add(new Position(i, p_position1.getY()));
                 }
             }
         } else if (p_position1.getX() == p_position2.getX()) {
             if (p_position1.getY() > p_position2.getY()) {
-                for (int i = p_position2.getY(); i < p_position1.getY(); i++) {
+                for (int i = p_position2.getY() + 1; i < p_position1.getY(); i++) {
                     chemin.add(new Position(p_position2.getX(), i));
                 }
             } else {
-                for (int i = p_position1.getY(); i < p_position2.getY(); i++) {
+                for (int i = p_position1.getY() + 1; i < p_position2.getY(); i++) {
                     chemin.add(new Position(p_position1.getX(), i));
                 }
             }
@@ -493,18 +550,28 @@ public class Echiquier {
      */
     public void deplacerPieceCourante(Position p_position) {
         if (mouvementsPiece(m_pieceCourante.getPosition()).contains(p_position)) {
-            PieceBase pieceCible = getPiece(p_position);
-            if (pieceCible != null) {
-                m_echiquier.remove(pieceCible);
+
+            if ((m_pieceCourante.getType() == PieceBase.TypePiece.ROI || m_pieceCourante.getType() == PieceBase.TypePiece.TOUR) && roquerRoi().contains(p_position)) {
+                Position positionRoi = new Position(m_pieceCourante.getPosition().getX(), m_pieceCourante.getPosition().getY());
+                Position positionTour = new Position(p_position.getX(), p_position.getY());
+                getPiece(p_position).roquer(positionRoi);
+                m_pieceCourante.roquer(positionTour);
             }
+            else {
 
-            m_pieceCourante.deplacer(p_position);
+                PieceBase pieceCible = getPiece(p_position);
+                if (pieceCible != null) {
+                    m_echiquier.remove(pieceCible);
+                }
 
-            if (m_pieceCourante.getType() == PieceBase.TypePiece.PION) {
-                if (m_pieceCourante.getCouleur() == PieceBase.Couleur.BLANC && m_pieceCourante.getPosition().getY() == 7
-                        || m_pieceCourante.getCouleur() == PieceBase.Couleur.NOIR && m_pieceCourante.getPosition().getY() == 0) {
-                    m_echiquier.remove(m_pieceCourante);
-                    m_echiquier.add(Reine.obtenirPiece(m_pieceCourante.getCouleur(), m_pieceCourante.getPosition()));
+                m_pieceCourante.deplacer(p_position);
+
+                if (m_pieceCourante.getType() == PieceBase.TypePiece.PION) {
+                    if (m_pieceCourante.getCouleur() == PieceBase.Couleur.BLANC && m_pieceCourante.getPosition().getY() == 7
+                            || m_pieceCourante.getCouleur() == PieceBase.Couleur.NOIR && m_pieceCourante.getPosition().getY() == 0) {
+                        m_echiquier.remove(m_pieceCourante);
+                        m_echiquier.add(Reine.obtenirPiece(m_pieceCourante.getCouleur(), m_pieceCourante.getPosition()));
+                    }
                 }
             }
 
@@ -580,13 +647,13 @@ public class Echiquier {
         m_echiquier.add(Reine.obtenirPiece(PieceBase.Couleur.BLANC, new Position(3, 0)));
 
         //Reine noire
-        m_echiquier.add(Reine.obtenirPiece(PieceBase.Couleur.NOIR, new Position(3, 7)));
+        m_echiquier.add(Reine.obtenirPiece(PieceBase.Couleur.NOIR, new Position(4, 7)));
 
         //Roi blanc
         m_echiquier.add(Roi.obtenirPiece(PieceBase.Couleur.BLANC, new Position(4, 0)));
 
         //Roi noir
-        m_echiquier.add(Roi.obtenirPiece(PieceBase.Couleur.NOIR, new Position(4, 7)));
+        m_echiquier.add(Roi.obtenirPiece(PieceBase.Couleur.NOIR, new Position(3, 7)));
     }
 
     /**
@@ -636,10 +703,10 @@ public class Echiquier {
      */
     public etatPartie getEtat() {
         etatPartie etatCourant;
-
-        if (detectionEchec(obtenirRoiCouleur()).size() != 0) {
+        PieceBase roi = obtenirRoiCouleur();
+        if (detectionEchec(roi).size() != 0) {
             etatCourant = etatPartie.ECHEC;
-            if (mouvementsPiece(obtenirRoiCouleur().getPosition()).size() == 0) {
+            if (mouvementsPiece(roi.getPosition()).size() == 0) {
                 etatCourant = etatPartie.ECHECMATE;
             }
         } else {

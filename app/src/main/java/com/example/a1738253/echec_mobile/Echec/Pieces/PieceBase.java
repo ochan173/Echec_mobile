@@ -26,16 +26,22 @@ public abstract class PieceBase {
 
         /**
          * Constructeur pour la couleur
+         *
          * @param p_direction valeur entière qui sera utilisée pour déterminer le sens
          *                    dans lequel un pion va avancer.
          */
-        Couleur(int p_direction) {m_direction = p_direction; }
+        Couleur(int p_direction) {
+            m_direction = p_direction;
+        }
 
         /**
          * Donne la direction, sur l'axe des Y, des pions en fonction de sa couleur.
+         *
          * @return la valeur de déplacement utilisé en Y.
          */
-        public int getDirection() { return m_direction; }
+        public int getDirection() {
+            return m_direction;
+        }
     }
 
     /**
@@ -46,6 +52,11 @@ public abstract class PieceBase {
     private Position m_position;
     private Couleur m_couleur;
     private TypePiece m_type;
+    private boolean m_aBougee = false;
+
+    public boolean getABougee() {
+        return m_aBougee;
+    }
 
     public Couleur getCouleur() {
         return m_couleur;
@@ -61,8 +72,9 @@ public abstract class PieceBase {
 
     /**
      * Constructeur de base pour une pièce.
-     * @param p_couleur la couleur que la pièce recevera.
-     * @param p_type Type de la pièce.
+     *
+     * @param p_couleur  la couleur que la pièce recevera.
+     * @param p_type     Type de la pièce.
      * @param p_position La position initiale de la pièce.
      */
     protected PieceBase(Couleur p_couleur, TypePiece p_type, Position p_position) {
@@ -73,20 +85,26 @@ public abstract class PieceBase {
 
     /**
      * Déplace la pièce avec une nouvelle position.
+     *
      * @param p_nouvellePosition la nouvelle position pour la pièce.
      * @return True si le déplacement est possible sinon False
      */
     public boolean deplacer(Position p_nouvellePosition) {
-        if(mouvementsPossible().contains(p_nouvellePosition) || zoneAttaques().contains(p_nouvellePosition)) {
+        if (mouvementsPossible().contains(p_nouvellePosition) || zoneAttaques().contains(p_nouvellePosition)) {
             m_position.modifierPosition(p_nouvellePosition);
             return true;
         }
         return false;
     }
 
+    public void roquer(Position p_nouvellePosition) {
+        m_position.modifierPosition(p_nouvellePosition);
+    }
+
 
     /**
      * Permet d'obtenir les positions pouvant être attaquées par la pièce.
+     *
      * @return les postions que la pièce peut attaquer.
      */
     public ArrayList<Position> zoneAttaques() {
@@ -96,6 +114,7 @@ public abstract class PieceBase {
     /**
      * Permet de retourner toutes les positions (sans contraintes) d'une pièce
      * en fonction du type de mouvement qu'elle possède.
+     *
      * @return Une collection de positions.
      */
     public abstract ArrayList<Position> mouvementsPossible();

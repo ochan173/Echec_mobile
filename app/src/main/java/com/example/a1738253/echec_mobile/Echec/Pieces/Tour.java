@@ -25,7 +25,8 @@ public class Tour extends PieceBase {
 
     /**
      * Permet d'obtenir une pièce Tour.
-     * @param p_couleur couleur de la pièce.
+     *
+     * @param p_couleur  couleur de la pièce.
      * @param p_position position de la pièce à la création.
      * @return une nouvelle Tour.
      */

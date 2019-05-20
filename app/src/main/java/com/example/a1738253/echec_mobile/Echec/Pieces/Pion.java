@@ -13,6 +13,7 @@ import java.util.ArrayList;
 public class Pion extends PieceBase {
 
     private int m_positionYInitiale;
+
     /**
      * Constructeur de base pour une pièce.
      *
