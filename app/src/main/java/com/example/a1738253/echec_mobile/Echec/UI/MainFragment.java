@@ -27,19 +27,28 @@ import java.util.ArrayList;
 
 public class MainFragment extends Fragment {
     TableLayout m_boardEchichier;
+    private static boolean debut = true;
     private ImageButton[][] m_boardXY;
     private TextView m_tour;
     private Joueur m_joueur1, m_joueur2;
-    private Button m_reset;
+//    private Button m_reset;
     private static int m_orientation = 1;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        DialogNomJoueur dlg = new DialogNomJoueur(getActivity());
-
-        dlg.show();
+//        DialogNomJoueur dlg = new DialogNomJoueur(getActivity());
+//    if (debut) {
+//        dlg.show();
+//        m_joueur1 = new Joueur(DialogNomJoueur.m_nomJ1);
+//        m_joueur1.set_couleur(PieceBase.Couleur.BLANC);
+//
+//        m_joueur2 = new Joueur(DialogNomJoueur.m_nomJ2);
+//        m_joueur2.set_couleur(PieceBase.Couleur.NOIR);
+//
+//        debut = DialogNomJoueur.result;
+//    }
 
     }
 
@@ -48,10 +57,22 @@ public class MainFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater p_inflater, @Nullable ViewGroup p_container, @Nullable Bundle savedInstanceState) {
        View v = p_inflater.inflate(R.layout.fragment_main, p_container, false);
 
-        m_joueur1 = new Joueur(DialogNomJoueur.m_nomJ1);
-        m_joueur1.set_couleur(PieceBase.Couleur.BLANC);
-        m_joueur2 = new Joueur(DialogNomJoueur.m_nomJ2);
-        m_joueur2.set_couleur(PieceBase.Couleur.NOIR);
+        if (DialogNomJoueur.result) {
+            DialogNomJoueur dlg = new DialogNomJoueur(getActivity());
+            dlg.show();
+            m_joueur1 = new Joueur(DialogNomJoueur.m_nomJ1);
+            m_joueur1.set_couleur(PieceBase.Couleur.BLANC);
+
+            m_joueur2 = new Joueur(DialogNomJoueur.m_nomJ2);
+            m_joueur2.set_couleur(PieceBase.Couleur.NOIR);
+
+            //debut = DialogNomJoueur.result;
+        }
+
+        //m_joueur1 = new Joueur(DialogNomJoueur.m_nomJ1);
+        //m_joueur1.set_couleur(PieceBase.Couleur.BLANC);
+        //m_joueur2 = new Joueur(DialogNomJoueur.m_nomJ2);
+        //m_joueur2.set_couleur(PieceBase.Couleur.NOIR);
 
         m_boardEchichier = v.findViewById(R.id.echiquier);
 
@@ -219,6 +240,7 @@ public class MainFragment extends Fragment {
 
 
     private void genererFooter() {
+        Button m_reset;
         TableRow footer = new TableRow(this.getContext());
         TextView tourJoueur = new TextView(this.getContext());
 
@@ -318,7 +340,4 @@ public class MainFragment extends Fragment {
         }
         colorerEchiquier();
     }
-
-
 }
-

@@ -10,9 +10,10 @@ import android.widget.EditText;
 import com.example.a1738253.echec_mobile.R;
 
 public class DialogNomJoueur extends Dialog {
+    static boolean result = true;
     private EditText m_joueur1, m_joueur2;
-    private Button m_confirmer;
-    static String m_nomJ1, m_nomJ2;
+    //private Button m_confirmer;
+    static  String m_nomJ1, m_nomJ2;
 
     DialogNomJoueur(Activity p_activity) {
         super(p_activity);
@@ -21,6 +22,9 @@ public class DialogNomJoueur extends Dialog {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Button m_confirmer;
+
         setContentView(R.layout.dialog_joueur);
         m_joueur1 = findViewById(R.id.joueur1);
         m_joueur2 = findViewById(R.id.joueur2);
@@ -38,6 +42,7 @@ public class DialogNomJoueur extends Dialog {
                 else {
                     m_nomJ1 = m_joueur1.getText().toString();
                     m_nomJ2 = m_joueur2.getText().toString();
+                    result = false;
                     dismiss();
                 }
             }
