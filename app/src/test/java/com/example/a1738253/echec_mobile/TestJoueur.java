@@ -1,7 +1,7 @@
 package com.example.a1738253.echec_mobile;
 
 import com.example.a1738253.echec_mobile.echec.Joueur;
-import com.example.a1738253.echec_mobile.echec.pieces.PieceBase;
+import com.example.a1738253.echec_mobile.echec.Pieces.PieceBase;
 
 import junit.framework.TestCase;
 

@@ -1,7 +1,7 @@
-package com.example.a1738253.echec_mobile.testPiece;
+package com.example.a1738253.echec_mobile.TestPiece;
 
-import com.example.a1738253.echec_mobile.echec.pieces.PieceBase;
-import com.example.a1738253.echec_mobile.echec.pieces.Pion;
+import com.example.a1738253.echec_mobile.echec.Pieces.PieceBase;
+import com.example.a1738253.echec_mobile.echec.Pieces.Pion;
 import com.example.a1738253.echec_mobile.echec.Position;
 
 import java.util.ArrayList;

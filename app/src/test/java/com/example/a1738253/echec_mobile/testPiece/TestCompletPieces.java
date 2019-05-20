@@ -1,4 +1,4 @@
-package com.example.a1738253.echec_mobile.testPiece;
+package com.example.a1738253.echec_mobile.TestPiece;
 
 
 import junit.framework.TestSuite;

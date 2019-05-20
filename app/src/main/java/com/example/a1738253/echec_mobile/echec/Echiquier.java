@@ -1,6 +1,6 @@
 package com.example.a1738253.echec_mobile.echec;
 
-import com.example.a1738253.echec_mobile.echec.pieces.*;
+import com.example.a1738253.echec_mobile.echec.Pieces.*;
 
 import java.util.ArrayList;
 
