@@ -1,10 +1,9 @@
 package com.example.a1738253.echec_mobile;
 
-import com.example.a1738253.echec_mobile.Echec.Echiquier;
-import com.example.a1738253.echec_mobile.Echec.Position;
+import com.example.a1738253.echec_mobile.echec.Echiquier;
+import com.example.a1738253.echec_mobile.echec.Position;
 
-import com.example.a1738253.echec_mobile.Echec.Pieces.*;
-import com.example.a1738253.echec_mobile.Echec.Pieces.PieceBase;
+import com.example.a1738253.echec_mobile.echec.pieces.*;
 import junit.framework.TestCase;
 
 import java.util.ArrayList;
@@ -123,8 +122,6 @@ public class TestEchiquier extends TestCase {
         echiquier.resetEchiquier();
         echiquier.getEchiquier().add(Roi.obtenirPiece(PieceBase.Couleur.NOIR, new Position(0, 0)));
         echiquier.getEchiquier().add(Roi.obtenirPiece(PieceBase.Couleur.BLANC, new Position(7, 6)));
-        ArrayList<Position> t = echiquier.mouvementsPiece(new Position(7, 6));
-        ArrayList<Position> t2 = echiquier.getPiece(new Position(7, 6)).mouvementsPossible();
 
         echiquier.resetEchiquier();
 

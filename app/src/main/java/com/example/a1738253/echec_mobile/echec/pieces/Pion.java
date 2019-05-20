@@ -1,6 +1,6 @@
-package com.example.a1738253.echec_mobile.Echec.Pieces;
+package com.example.a1738253.echec_mobile.echec.pieces;
 
-import com.example.a1738253.echec_mobile.Echec.Position;
+import com.example.a1738253.echec_mobile.echec.Position;
 
 import java.util.ArrayList;
 
@@ -12,17 +12,16 @@ import java.util.ArrayList;
  */
 public class Pion extends PieceBase {
 
-    private int m_positionYInitiale;
+    private final int m_positionYInitiale;
 
     /**
      * Constructeur de base pour une pièce.
      *
      * @param p_couleur  la couleur que la pièce recevera.
-     * @param p_type     Type de la pièce.
      * @param p_position La position initiale de la pièce.
      */
-    private Pion(Couleur p_couleur, TypePiece p_type, Position p_position) {
-        super(p_couleur, p_type, p_position);
+    private Pion(Couleur p_couleur, Position p_position) {
+        super(p_couleur, TypePiece.PION, p_position);
         if ( p_couleur == Couleur.BLANC) {
             m_positionYInitiale = 1;
         }
@@ -38,7 +37,7 @@ public class Pion extends PieceBase {
      * @return un nouveau Pion.
      */
     public static PieceBase obtenirPiece(Couleur p_couleur, Position p_position) {
-        return new Pion(p_couleur, TypePiece.PION, p_position);
+        return new Pion(p_couleur, p_position);
     }
 
     @Override

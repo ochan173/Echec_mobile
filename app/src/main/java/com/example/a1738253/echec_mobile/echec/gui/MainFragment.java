@@ -1,10 +1,11 @@
-package com.example.a1738253.echec_mobile.Echec.UI;
+package com.example.a1738253.echec_mobile.echec.gui;
 
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.res.ResourcesCompat;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -17,39 +18,24 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.a1738253.echec_mobile.Echec.Echiquier;
-import com.example.a1738253.echec_mobile.Echec.Joueur;
-import com.example.a1738253.echec_mobile.Echec.Pieces.PieceBase;
-import com.example.a1738253.echec_mobile.Echec.Position;
+import com.example.a1738253.echec_mobile.echec.Echiquier;
+import com.example.a1738253.echec_mobile.echec.Joueur;
+import com.example.a1738253.echec_mobile.echec.pieces.PieceBase;
+import com.example.a1738253.echec_mobile.echec.Position;
 import com.example.a1738253.echec_mobile.R;
 
 import java.util.ArrayList;
 
 public class MainFragment extends Fragment {
-    TableLayout m_boardEchichier;
-    private static boolean debut = true;
+    private TableLayout m_boardEchichier;
     private ImageButton[][] m_boardXY;
     private TextView m_tour;
     private Joueur m_joueur1, m_joueur2;
-//    private Button m_reset;
     private static int m_orientation = 1;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-//        DialogNomJoueur dlg = new DialogNomJoueur(getActivity());
-//    if (debut) {
-//        dlg.show();
-//        m_joueur1 = new Joueur(DialogNomJoueur.m_nomJ1);
-//        m_joueur1.set_couleur(PieceBase.Couleur.BLANC);
-//
-//        m_joueur2 = new Joueur(DialogNomJoueur.m_nomJ2);
-//        m_joueur2.set_couleur(PieceBase.Couleur.NOIR);
-//
-//        debut = DialogNomJoueur.result;
-//    }
-
     }
 
     @Nullable
@@ -65,14 +51,7 @@ public class MainFragment extends Fragment {
 
             m_joueur2 = new Joueur(DialogNomJoueur.m_nomJ2);
             m_joueur2.set_couleur(PieceBase.Couleur.NOIR);
-
-            //debut = DialogNomJoueur.result;
         }
-
-        //m_joueur1 = new Joueur(DialogNomJoueur.m_nomJ1);
-        //m_joueur1.set_couleur(PieceBase.Couleur.BLANC);
-        //m_joueur2 = new Joueur(DialogNomJoueur.m_nomJ2);
-        //m_joueur2.set_couleur(PieceBase.Couleur.NOIR);
 
         m_boardEchichier = v.findViewById(R.id.echiquier);
 
@@ -90,7 +69,7 @@ public class MainFragment extends Fragment {
 
             if (Echiquier.getInstance().getEtat() != Echiquier.etatPartie.ECHECMATE) {
 
-                m_boardXY[p.getPosition().getX()][p.getPosition().getY()].setImageDrawable(getResources().getDrawable(getRepresentation(p)));
+                m_boardXY[p.getPosition().getX()][p.getPosition().getY()].setImageDrawable(ResourcesCompat.getDrawable(getResources(), getRepresentation(p), null));
 
                 if (p.getCouleur() == Echiquier.getInstance().getTourJoueur()) {
                     jouerTour(p);
@@ -122,7 +101,7 @@ public class MainFragment extends Fragment {
         });
     }
 
-    public void afficherPositionsPossible(final PieceBase p_piece) {
+    private void afficherPositionsPossible(final PieceBase p_piece) {
         desactiverBoutons();
         final Position positionInitiale = new Position(p_piece.getPosition().getX(), p_piece.getPosition().getY());
         m_boardXY[p_piece.getPosition().getX()][p_piece.getPosition().getY()].setEnabled(true);
@@ -215,7 +194,7 @@ public class MainFragment extends Fragment {
         }
     }
 
-    public int getRepresentation(PieceBase p) {
+    private int getRepresentation(PieceBase p) {
         if (p.getCouleur() == PieceBase.Couleur.BLANC) {
             switch (p.getType()) {
                 case CAVALIER: return R.drawable.cavalier_blanc;
@@ -237,7 +216,6 @@ public class MainFragment extends Fragment {
             }
         }
     }
-
 
     private void genererFooter() {
         Button m_reset;
@@ -286,7 +264,7 @@ public class MainFragment extends Fragment {
     }
 
     private void colorerEchiquier() {
-        int couleur = 0;
+        int couleur;
 
         for (int y = 0; y <= 7; y++) {
 
@@ -310,7 +288,8 @@ public class MainFragment extends Fragment {
         }
     }
 
-    public void genererBoard() {
+
+    private void genererBoard() {
         m_boardXY = new ImageButton[8][8];
 
         DisplayMetrics displaymetrics = new DisplayMetrics();

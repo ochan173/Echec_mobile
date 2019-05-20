@@ -1,7 +1,7 @@
-package com.example.a1738253.echec_mobile.Echec.Pieces;
+package com.example.a1738253.echec_mobile.echec.pieces;
 
 
-import com.example.a1738253.echec_mobile.Echec.Position;
+import com.example.a1738253.echec_mobile.echec.Position;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -22,7 +22,7 @@ public abstract class PieceBase {
         BLANC(1),
         NOIR(-1);
 
-        private int m_direction;
+        private final int m_direction;
 
         /**
          * Constructeur pour la couleur
@@ -39,7 +39,7 @@ public abstract class PieceBase {
          *
          * @return la valeur de déplacement utilisé en Y.
          */
-        public int getDirection() {
+        int getDirection() {
             return m_direction;
         }
     }
@@ -50,9 +50,9 @@ public abstract class PieceBase {
     public enum TypePiece {ROI, REINE, TOUR, CAVALIER, PION, FOU}
 
     private Position m_position;
-    private Couleur m_couleur;
-    private TypePiece m_type;
-    private boolean m_aBougee = false;
+    private final Couleur m_couleur;
+    private final TypePiece m_type;
+    private boolean m_aBougee;
 
     public boolean getABougee() {
         return m_aBougee;
@@ -77,10 +77,11 @@ public abstract class PieceBase {
      * @param p_type     Type de la pièce.
      * @param p_position La position initiale de la pièce.
      */
-    protected PieceBase(Couleur p_couleur, TypePiece p_type, Position p_position) {
+    PieceBase(Couleur p_couleur, TypePiece p_type, Position p_position) {
         m_couleur = p_couleur;
         m_type = p_type;
         m_position = p_position;
+        m_aBougee = false;
     }
 
     /**
@@ -92,6 +93,7 @@ public abstract class PieceBase {
     public boolean deplacer(Position p_nouvellePosition) {
         if (mouvementsPossible().contains(p_nouvellePosition) || zoneAttaques().contains(p_nouvellePosition)) {
             m_position.modifierPosition(p_nouvellePosition);
+            m_aBougee = true;
             return true;
         }
         return false;
@@ -99,6 +101,7 @@ public abstract class PieceBase {
 
     public void roquer(Position p_nouvellePosition) {
         m_position.modifierPosition(p_nouvellePosition);
+        m_aBougee = true;
     }
 
 

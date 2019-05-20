@@ -1,7 +1,7 @@
-package com.example.a1738253.echec_mobile.Echec.Pieces;
+package com.example.a1738253.echec_mobile.echec.pieces;
 
-import com.example.a1738253.echec_mobile.Echec.Position;
-import com.example.a1738253.echec_mobile.Echec.PositionInvalideException;
+import com.example.a1738253.echec_mobile.echec.Position;
+import com.example.a1738253.echec_mobile.echec.PositionInvalideException;
 
 
 import java.util.ArrayList;
@@ -18,11 +18,10 @@ public class Cavalier extends PieceBase {
      * Constructeur de base pour une pièce.
      *
      * @param p_couleur  la couleur que la pièce recevera.
-     * @param p_type     Type de la pièce.
      * @param p_position La position initiale de la pièce.
      */
-    private Cavalier(Couleur p_couleur, TypePiece p_type, Position p_position) {
-        super(p_couleur, p_type, p_position);
+    private Cavalier(Couleur p_couleur, Position p_position) {
+        super(p_couleur, TypePiece.CAVALIER, p_position);
     }
 
     /**
@@ -32,7 +31,7 @@ public class Cavalier extends PieceBase {
      * @return un nouveau Cavalier.
      */
     public static PieceBase obtenirPiece(Couleur p_couleur, Position p_position) {
-        return new Cavalier(p_couleur, TypePiece.CAVALIER, p_position);
+        return new Cavalier(p_couleur, p_position);
     }
 
     @Override

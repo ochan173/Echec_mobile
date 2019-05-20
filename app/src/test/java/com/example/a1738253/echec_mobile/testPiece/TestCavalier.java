@@ -1,8 +1,8 @@
-package com.example.a1738253.echec_mobile.TestPiece;
+package com.example.a1738253.echec_mobile.testPiece;
 
-import com.example.a1738253.echec_mobile.Echec.Pieces.Cavalier;
-import com.example.a1738253.echec_mobile.Echec.Pieces.PieceBase;
-import com.example.a1738253.echec_mobile.Echec.Position;
+import com.example.a1738253.echec_mobile.echec.pieces.Cavalier;
+import com.example.a1738253.echec_mobile.echec.pieces.PieceBase;
+import com.example.a1738253.echec_mobile.echec.Position;
 
 import java.util.ArrayList;
 
@@ -31,7 +31,7 @@ public class TestCavalier extends TestPieceBase {
 
     @Override
     protected ArrayList<Position> obtenirMouvementPossible() {
-        ArrayList<Position> positionsAttendues = new ArrayList<Position>();
+        ArrayList<Position> positionsAttendues = new ArrayList<>();
 
         // Inverse x <-> y
         // Besoin de trouver chaque coin, puis inverser x et y pour obtenir la deuxième position dans le même coin

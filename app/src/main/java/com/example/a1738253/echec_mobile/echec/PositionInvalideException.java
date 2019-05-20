@@ -1,4 +1,4 @@
-package com.example.a1738253.echec_mobile.Echec;
+package com.example.a1738253.echec_mobile.echec;
 
 /**
  * Classe d'exception personnalisée pour les positions.
