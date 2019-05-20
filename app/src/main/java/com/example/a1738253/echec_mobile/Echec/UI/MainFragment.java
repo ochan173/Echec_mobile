@@ -59,8 +59,6 @@ public class MainFragment extends Fragment {
         genererFooter();
         m_orientation *= -1;
 
-        Echiquier.getInstance().remplir();
-
         afficherEchiquier();
 
         return v;

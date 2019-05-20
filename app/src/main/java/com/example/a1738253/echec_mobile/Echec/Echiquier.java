@@ -21,6 +21,7 @@ public class Echiquier {
 
     private Echiquier() {
         m_echiquier = new ArrayList<>();
+        remplir();
     }
 
     /**
