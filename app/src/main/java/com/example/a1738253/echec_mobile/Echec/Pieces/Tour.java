@@ -16,11 +16,10 @@ public class Tour extends PieceBase {
      * Constructeur de base pour une pièce.
      *
      * @param p_couleur  la couleur que la pièce recevera.
-     * @param p_type     Type de la pièce.
      * @param p_position La position initiale de la pièce.
      */
-    private Tour(Couleur p_couleur, TypePiece p_type, Position p_position) {
-        super(p_couleur, p_type, p_position);
+    private Tour(Couleur p_couleur, Position p_position) {
+        super(p_couleur, TypePiece.TOUR, p_position);
     }
 
     /**
@@ -31,7 +30,7 @@ public class Tour extends PieceBase {
      * @return une nouvelle Tour.
      */
     public static PieceBase obtenirPiece(Couleur p_couleur, Position p_position) {
-        return new Tour(p_couleur, TypePiece.TOUR, p_position);
+        return new Tour(p_couleur, p_position);
     }
 
     @Override

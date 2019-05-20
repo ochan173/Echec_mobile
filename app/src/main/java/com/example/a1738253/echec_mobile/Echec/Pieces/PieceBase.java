@@ -52,7 +52,7 @@ public abstract class PieceBase {
     private Position m_position;
     private Couleur m_couleur;
     private TypePiece m_type;
-    private boolean m_aBougee = false;
+    private boolean m_aBougee;
 
     public boolean getABougee() {
         return m_aBougee;
@@ -81,6 +81,7 @@ public abstract class PieceBase {
         m_couleur = p_couleur;
         m_type = p_type;
         m_position = p_position;
+        m_aBougee = false;
     }
 
     /**
@@ -92,6 +93,7 @@ public abstract class PieceBase {
     public boolean deplacer(Position p_nouvellePosition) {
         if (mouvementsPossible().contains(p_nouvellePosition) || zoneAttaques().contains(p_nouvellePosition)) {
             m_position.modifierPosition(p_nouvellePosition);
+            m_aBougee = true;
             return true;
         }
         return false;
@@ -99,6 +101,7 @@ public abstract class PieceBase {
 
     public void roquer(Position p_nouvellePosition) {
         m_position.modifierPosition(p_nouvellePosition);
+        m_aBougee = true;
     }
 
 

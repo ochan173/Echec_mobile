@@ -16,11 +16,10 @@ public class Reine extends PieceBase {
      * Constructeur de base pour une pièce.
      *
      * @param p_couleur  la couleur que la pièce recevera.
-     * @param p_type     Type de la pièce.
      * @param p_position La position initiale de la pièce.
      */
-    private Reine(Couleur p_couleur, TypePiece p_type, Position p_position) {
-        super(p_couleur, p_type, p_position);
+    private Reine(Couleur p_couleur, Position p_position) {
+        super(p_couleur, TypePiece.REINE, p_position);
     }
 
     /**
@@ -30,7 +29,7 @@ public class Reine extends PieceBase {
      * @return un nouveau Reine.
      */
     public static PieceBase obtenirPiece(Couleur p_couleur, Position p_position) {
-        return new Reine(p_couleur, TypePiece.REINE, p_position);
+        return new Reine(p_couleur, p_position);
     }
 
     @Override

@@ -101,7 +101,7 @@ public class MainFragment extends Fragment {
         });
     }
 
-    public void afficherPositionsPossible(final PieceBase p_piece) {
+    private void afficherPositionsPossible(final PieceBase p_piece) {
         desactiverBoutons();
         final Position positionInitiale = new Position(p_piece.getPosition().getX(), p_piece.getPosition().getY());
         m_boardXY[p_piece.getPosition().getX()][p_piece.getPosition().getY()].setEnabled(true);
@@ -194,7 +194,7 @@ public class MainFragment extends Fragment {
         }
     }
 
-    public int getRepresentation(PieceBase p) {
+    private int getRepresentation(PieceBase p) {
         if (p.getCouleur() == PieceBase.Couleur.BLANC) {
             switch (p.getType()) {
                 case CAVALIER: return R.drawable.cavalier_blanc;
@@ -289,7 +289,7 @@ public class MainFragment extends Fragment {
     }
 
 
-    public void genererBoard() {
+    private void genererBoard() {
         m_boardXY = new ImageButton[8][8];
 
         DisplayMetrics displaymetrics = new DisplayMetrics();
