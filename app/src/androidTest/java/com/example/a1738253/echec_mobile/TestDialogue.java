@@ -1,7 +1,6 @@
 package com.example.a1738253.echec_mobile;
 
 import android.support.test.rule.ActivityTestRule;
-import com.example.a1738253.echec_mobile.Echec.UI.MainActivity;
 import android.support.test.runner.AndroidJUnit4;
 
 import org.junit.Rule;
@@ -27,7 +26,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
 @RunWith(AndroidJUnit4.class)
 public class TestDialogue {
     @Rule
-    public ActivityTestRule<MainActivity> m_activityRule = new ActivityTestRule<>(MainActivity.class);
+    public ActivityTestRule<com.example.a1738253.echec_mobile.echec.gui.MainActivity> m_activityRule = new ActivityTestRule<>(com.example.a1738253.echec_mobile.echec.gui.MainActivity.class);
 
     /**
      * Test du dialogue pour la saisie des noms
